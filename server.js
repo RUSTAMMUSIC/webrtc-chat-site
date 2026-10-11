@@ -1,77 +1,51 @@
-
+```javascript
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const { AccessToken } = require("livekit-server-sdk");
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(express.static(__dirname));
+app.use(express.json());
+
+app.post("/livekit-token", async (req, res) => {
+  try {
+    const room = "TanishamizLive";
+    const identity = "guest-" + Math.random().toString(36).slice(2, 10);
+
+    const token = new AccessToken(
+      process.env.LIVEKIT_API_KEY,
+      process.env.LIVEKIT_API_SECRET,
+      { identity }
+    );
+
+    token.addGrant({
+      roomJoin: true,
+      room,
+      canPublish: true,
+      canSubscribe: true
+    });
+
+    res.json({
+      token: await token.toJwt(),
+      url: process.env.LIVEKIT_URL,
+      room
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Token yaratilmadi" });
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("Foydalanuvchi ulandi:", socket.id);
-
-  socket.on("join-room", (room) => {
-    if (typeof room !== "string" || !room.trim()) return;
-
-    const roomId = room.trim();
-    socket.data.room = roomId;
-    socket.join(roomId);
-
-    socket.to(roomId).emit("user-joined", socket.id);
-  });
-
-  socket.on("offer", ({ to, offer } = {}) => {
-    if (to && offer) {
-      io.to(to).emit("offer", {
-        from: socket.id,
-        offer
-      });
-    }
-  });
-
-  socket.on("answer", ({ to, answer } = {}) => {
-    if (to && answer) {
-      io.to(to).emit("answer", {
-        from: socket.id,
-        answer
-      });
-    }
-  });
-
-  socket.on("ice-candidate", ({ to, candidate } = {}) => {
-    if (to && candidate) {
-      io.to(to).emit("ice-candidate", {
-        from: socket.id,
-        candidate
-      });
-    }
-  });
-
-  socket.on("chat-message", ({ room, message } = {}) => {
-    if (
-      room === socket.data.room &&
-      typeof message === "string" &&
-      message.trim()
-    ) {
-      socket.to(room).emit("chat-message", {
-        message: message.trim().slice(0, 2000)
-      });
-    }
-  });
-
-  socket.on("disconnect", () => {
-    if (socket.data.room) {
-      socket.to(socket.data.room).emit("user-left", socket.id);
-    }
-
-    console.log("Foydalanuvchi uzildi:", socket.id);
-  });
 });
 
 const PORT = process.env.PORT || 3000;
-
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server ${PORT} portda ishga tushdi`);
+  console.log("Server ishga tushdi:", PORT);
 });
+```
