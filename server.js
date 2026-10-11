@@ -1,7 +1,6 @@
 
 const express = require("express");
 const http = require("http");
-const path = require("path");
 const { Server } = require("socket.io");
 
 const app = express();
@@ -14,12 +13,60 @@ io.on("connection", (socket) => {
   console.log("Foydalanuvchi ulandi:", socket.id);
 
   socket.on("join-room", (room) => {
-    socket.join(room);
-    socket.to(room).emit("user-joined", socket.id);
+    if (typeof room !== "string" || !room.trim()) return;
+
+    const roomId = room.trim();
+    socket.data.room = roomId;
+    socket.join(roomId);
+
+    socket.to(roomId).emit("user-joined", socket.id);
+  });
+
+  socket.on("offer", ({ to, offer } = {}) => {
+    if (to && offer) {
+      io.to(to).emit("offer", {
+        from: socket.id,
+        offer
+      });
+    }
+  });
+
+  socket.on("answer", ({ to, answer } = {}) => {
+    if (to && answer) {
+      io.to(to).emit("answer", {
+        from: socket.id,
+        answer
+      });
+    }
+  });
+
+  socket.on("ice-candidate", ({ to, candidate } = {}) => {
+    if (to && candidate) {
+      io.to(to).emit("ice-candidate", {
+        from: socket.id,
+        candidate
+      });
+    }
+  });
+
+  socket.on("chat-message", ({ room, message } = {}) => {
+    if (
+      room === socket.data.room &&
+      typeof message === "string" &&
+      message.trim()
+    ) {
+      socket.to(room).emit("chat-message", {
+        message: message.trim().slice(0, 2000)
+      });
+    }
   });
 
   socket.on("disconnect", () => {
-    console.log("Foydalanuvchi uzildi");
+    if (socket.data.room) {
+      socket.to(socket.data.room).emit("user-left", socket.id);
+    }
+
+    console.log("Foydalanuvchi uzildi:", socket.id);
   });
 });
 
