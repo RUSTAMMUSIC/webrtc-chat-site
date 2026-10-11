@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video qo‘ng‘iroq va chat</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px 16px;
+      background: #101827;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .app {
+      max-width: 800px;
+      margin: auto;
+    }
+    input, button {
+      padding: 12px;
+      margin: 5px;
+      border: 0;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    .videos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    video {
+      width: 100%;
+      max-width: 380px;
+      min-height: 200px;
+      background: #263449;
+      border-radius: 12px;
+    }
+    #messages {
+      height: 150px;
+      overflow-y: auto;
+      text-align: left;
+      background: #1e293b;
+      padding: 12px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>Video qo‘ng‘iroq</h1>
+    <p>Do‘stingiz bilan xona orqali bog‘laning</p>
+
+    <input id="room" placeholder="Xona ID kiriting">
+    <button id="join">Xonaga kirish</button>
+
+    <div class="videos">
+      <video id="localVideo" autoplay muted playsinline></video>
+      <video id="remoteVideo" autoplay playsinline></video>
+    </div>
+
+    <p>
+      <button id="camera">Kamerani yoqish</button>
+      <button id="mic">Mikrofonni yoqish</button>
+    </p>
+
+    <h2>Chat</h2>
+    <div id="messages"></div>
+    <input id="message" placeholder="Xabar yozing">
+    <button id="send">Yuborish</button>
+
+    <p id="status">Xonaga kirishga tayyor.</p>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const status = document.getElementById("status");
+    document.getElementById("join").onclick = () => {
+      status.textContent =
+        "Interfeys tayyor. Server ulanishi keyingi bosqichda sozlanadi.";
+    };
+    document.getElementById("camera").onclick = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true, audio: false
+        });
+        document.getElementById("localVideo").srcObject = stream;
+        status.textContent = "Kamera ishlayapti.";
+      } catch (error) {
+        status.textContent = "Kameraga ruxsat bering yoki HTTPS ni tekshiring.";
+      }
+    };
+    document.getElementById("mic").onclick = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true
+        });
+        stream.getAudioTracks().forEach(track => track.stop());
+        status.textContent = "Mikrofon ruxsati tekshirildi.";
+      } catch (error) {
+        status.textContent = "Mikrofonga ruxsat berilmadi.";
+      }
+    };
+    document.getElementById("send").onclick = () => {
+      const input = document.getElementById("message");
+      if (!input.value.trim()) return;
+      const line = document.createElement("p");
+      line.textContent = "Siz: " + input.value;
+      document.getElementById("messages").appendChild(line);
+      input.value = "";
+    };
+  </script>
+</body>
+</html>
