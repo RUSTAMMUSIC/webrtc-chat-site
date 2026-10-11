@@ -2,303 +2,202 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video qo‘ng‘iroq va chat</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 30px 16px;
-      background: #101827;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    .app { max-width: 800px; margin: auto; }
-    input, button {
-      padding: 12px;
-      margin: 5px;
-      border: 0;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    button {
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-    }
-    button:disabled { opacity: .5; cursor: not-allowed; }
-    .videos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    video {
-      width: 100%;
-      max-width: 380px;
-      min-height: 200px;
-      background: #263449;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-    #messages {
-      height: 150px;
-      overflow-y: auto;
-      text-align: left;
-      background: #1e293b;
-      padding: 12px;
-      border-radius: 8px;
-      overflow-wrap: anywhere;
-    }
-    #status { overflow-wrap: anywhere; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rustam Chat</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark}
+body{margin:0;background:#0b1120;color:#f8fafc;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+.app{max-width:480px;min-height:100dvh;margin:auto;background:#111a2b;position:relative;padding-bottom:90px}
+header{padding:22px 20px 16px;background:#162238;border-bottom:1px solid #27344b}
+.brand{font-size:25px;font-weight:800;letter-spacing:-.7px}
+.brand span{color:#60a5fa}
+.subtitle{color:#9eacc3;font-size:13px;margin-top:7px}
+main{padding:20px}
+.page{display:none}
+.page.active{display:block}
+h2{font-size:23px;margin:0 0 8px}
+.desc{color:#9eacc3;font-size:14px;line-height:1.5;margin:0 0 22px}
+.field{display:block;width:100%;padding:15px;margin:10px 0;border:1px solid #34435d;border-radius:13px;background:#0c1424;color:white;outline:none}
+.field:focus{border-color:#60a5fa}
+.primary{width:100%;padding:15px;border-radius:13px;background:#3b82f6;color:white;font-weight:700;margin-top:8px}
+.secondary{padding:13px 16px;border-radius:12px;background:#263650;color:white}
+.switch{background:none;color:#60a5fa;margin-top:18px;width:100%;padding:10px}
+.card{background:#1a2740;border:1px solid #2a3954;border-radius:18px;padding:18px;margin:14px 0}
+.row{display:flex;align-items:center;gap:13px}
+.avatar{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:#304a70;font-size:21px;flex-shrink:0}
+.muted{color:#9eacc3;font-size:13px;line-height:1.5}
+.pill{display:inline-block;padding:6px 10px;background:#153b36;color:#6ee7b7;border-radius:20px;font-size:12px}
+.chatbox{height:45vh;min-height:230px;max-height:430px;overflow:auto;background:#0c1424;border-radius:16px;padding:12px;margin:14px 0}
+.bubble{background:#243653;border-radius:14px 14px 14px 4px;padding:11px 13px;margin:9px 0;max-width:85%;overflow-wrap:anywhere}
+.bubble.mine{margin-left:auto;background:#2563eb;border-radius:14px 14px 4px 14px}
+.composer{display:flex;gap:8px}
+.composer input{min-width:0;flex:1;margin:0}
+.composer button{padding:0 17px;border-radius:12px;background:#3b82f6;color:white}
+.big-icon{font-size:48px;text-align:center;margin:20px 0}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+.round{width:62px;height:62px;border-radius:50%;background:#30415d;color:white;font-size:23px}
+.round.blue{background:#2563eb}
+.round.red{background:#dc3545}
+.video-box{height:220px;border-radius:18px;background:#080e19;border:1px solid #2a3954;display:grid;place-items:center;margin:14px 0;color:#9eacc3;text-align:center;padding:20px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px 8px calc(10px + env(safe-area-inset-bottom));background:#162238;border-top:1px solid #2a3954}
+nav button{background:transparent;color:#91a0b8;padding:9px 2px;border-radius:12px;font-size:12px}
+nav button.active{background:#263b5d;color:#93c5fd}
+nav .symbol{display:block;font-size:21px;margin-bottom:5px}
+#status{font-size:13px;color:#9eacc3;line-height:1.5;margin-top:14px}
+@media(min-width:600px){body{padding:20px 0}.app{border:1px solid #2a3954;border-radius:22px;overflow:hidden;min-height:calc(100dvh - 40px)}nav{bottom:20px;border-radius:0 0 22px 22px}}
+</style>
 </head>
 <body>
-  <main class="app">
-    <h1>Video qo‘ng‘iroq</h1>
-    <p>Do‘stingiz bilan xona orqali bog‘laning</p>
+<div class="app">
+<header>
+  <div class="brand">Rustam<span>Chat</span></div>
+  <div class="subtitle">Suhbat uchun qulay va xavfsiz joy</div>
+</header>
 
-    <input id="room" placeholder="Xona ID kiriting">
-    <button id="join">Xonaga kirish</button>
+<main>
+<section class="page active" id="auth">
+  <div class="big-icon">💬</div>
+  <h2 id="authTitle">Xush kelibsiz!</h2>
+  <p class="desc">Davom etish uchun nik va parolingizni kiriting.</p>
+  <input class="field" id="nickname" placeholder="Nik (foydalanuvchi nomi)" maxlength="24" autocomplete="username">
+  <input class="field" id="password" type="password" placeholder="Parol" autocomplete="current-password">
+  <button class="primary" id="authButton">Kirish</button>
+  <button class="switch" id="switchAuth">Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish</button>
+  <p class="muted">Bu hozircha dizayn namunasi. Haqiqiy akkaunt yaratish keyingi bosqichda ulanadi.</p>
+</section>
 
-    <div class="videos">
-      <video id="localVideo" autoplay muted playsinline></video>
-      <video id="remoteVideo" autoplay playsinline></video>
+<section class="page" id="chat">
+  <h2>Chat</h2>
+  <p class="desc">Xabarlar va do‘stlar bilan yozishmalar.</p>
+  <div class="card row">
+    <div class="avatar">🌐</div>
+    <div><b>Umumiy chat</b><div class="muted">Hamma uchun suhbat xonasi</div></div>
+    <span class="pill">Ochiq</span>
+  </div>
+  <div class="chatbox" id="messages">
+    <p class="muted" id="emptyChat">Chat tayyor. Hozircha bu dizayn namunasi.</p>
+  </div>
+  <div class="composer">
+    <input class="field" id="message" placeholder="Xabar yozing..." maxlength="1000">
+    <button id="send">➤</button>
+  </div>
+  <p class="muted">Xabarlar hozircha faqat shu qurilmada ko‘rinadi.</p>
+</section>
+
+<section class="page" id="voice">
+  <h2>Ovozli suhbat</h2>
+  <p class="desc">Ovoz orqali suhbatlashish uchun alohida bo‘lim.</p>
+  <div class="card" style="text-align:center;padding:28px 18px">
+    <div class="big-icon">🎙️</div>
+    <h3>Ovozli xona</h3>
+    <p class="muted">Mikrofon boshqaruvi va suhbatga ulanish shu yerda bo‘ladi.</p>
+    <div class="actions">
+      <button class="round blue" id="micButton" aria-label="Mikrofonni yoqish">🎤</button>
     </div>
+    <p id="voiceStatus" class="muted">Ovozli suhbat hali ulanmagan.</p>
+  </div>
+</section>
 
-    <p>
-      <button id="camera">Kamerani o‘chirish</button>
-      <button id="mic">Mikrofonni o‘chirish</button>
-    </p>
+<section class="page" id="video">
+  <h2>Video qo‘ng‘iroq</h2>
+  <p class="desc">Kamera orqali yuzma-yuz suhbat.</p>
+  <div class="video-box" id="videoBox">📹<br>Kamera oynasi</div>
+  <video id="localVideo" autoplay muted playsinline style="display:none;width:100%;border-radius:16px"></video>
+  <div class="actions">
+    <button class="round blue" id="cameraButton" aria-label="Kamerani yoqish">📷</button>
+    <button class="round" id="videoMicButton" aria-label="Mikrofon">🎤</button>
+    <button class="round red" id="stopCamera" aria-label="Kamerani o‘chirish">✕</button>
+  </div>
+  <p id="videoStatus" class="muted">Kamera hali yoqilmagan.</p>
+  <p class="muted">Boshqa odam bilan haqiqiy videoaloqa keyingi bosqichda ulanadi.</p>
+</section>
+</main>
 
-    <h2>Chat</h2>
-    <div id="messages"></div>
-    <input id="message" placeholder="Xabar yozing">
-    <button id="send">Yuborish</button>
+<nav>
+  <button class="active" data-page="chat"><span class="symbol">💬</span>Chat</button>
+  <button data-page="voice"><span class="symbol">🎙️</span>Ovozli suhbat</button>
+  <button data-page="video"><span class="symbol">📹</span>Video qo‘ng‘iroq</button>
+</nav>
+</div>
 
-    <p id="status">Xonaga kirishga tayyor.</p>
-  </main>
+<script>
+const pages = ["auth","chat","voice","video"];
+function openPage(name){
+  pages.forEach(id=>document.getElementById(id).classList.toggle("active",id===name));
+  document.querySelectorAll("nav button").forEach(btn=>btn.classList.toggle("active",btn.dataset.page===name));
+}
+document.querySelectorAll("nav button").forEach(btn=>{
+  btn.onclick=()=>openPage(btn.dataset.page);
+});
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
+let registering=false;
+document.getElementById("switchAuth").onclick=()=>{
+  registering=!registering;
+  document.getElementById("authTitle").textContent=registering?"Hisob yaratish":"Xush kelibsiz!";
+  document.getElementById("authButton").textContent=registering?"Ro‘yxatdan o‘tish":"Kirish";
+  document.getElementById("switchAuth").textContent=registering?"Hisobingiz bormi? Kirish":"Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish";
+  document.getElementById("password").autocomplete=registering?"new-password":"current-password";
+};
+document.getElementById("authButton").onclick=()=>{
+  alert("Bu faqat dizayn namunasi. Haqiqiy nik va parol tizimini keyingi bosqichda ulaymiz.");
+};
 
-    const status = document.getElementById("status");
-    const roomInput = document.getElementById("room");
-    const localVideo = document.getElementById("localVideo");
-    const remoteVideo = document.getElementById("remoteVideo");
-    const messages = document.getElementById("messages");
+const messages=document.getElementById("messages");
+function sendMessage(){
+  const input=document.getElementById("message");
+  const value=input.value.trim();
+  if(!value)return;
+  const empty=document.getElementById("emptyChat");
+  if(empty)empty.remove();
+  const bubble=document.createElement("div");
+  bubble.className="bubble mine";
+  bubble.textContent=value;
+  messages.appendChild(bubble);
+  messages.scrollTop=messages.scrollHeight;
+  input.value="";
+}
+document.getElementById("send").onclick=sendMessage;
+document.getElementById("message").addEventListener("keydown",e=>{if(e.key==="Enter")sendMessage();});
 
-    let localStream = null;
-    let roomId = "";
-    const peers = new Map();
-
-    const iceConfig = {
-      iceServers: [
-        { urls: "stun:stun.l.google.com:19302" }
-      ]
-    };
-
-    function showMessage(text) {
-      const line = document.createElement("p");
-      line.textContent = text;
-      messages.appendChild(line);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    async function startMedia() {
-      if (localStream) return;
-
-      localStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      });
-
-      localVideo.srcObject = localStream;
-      document.getElementById("camera").textContent = "Kamerani o‘chirish";
-      document.getElementById("mic").textContent = "Mikrofonni o‘chirish";
-    }
-
-    function createPeer(peerId) {
-      if (peers.has(peerId)) return peers.get(peerId);
-
-      const pc = new RTCPeerConnection(iceConfig);
-      peers.set(peerId, pc);
-
-      if (localStream) {
-        localStream.getTracks().forEach(track => {
-          pc.addTrack(track, localStream);
-        });
-      }
-
-      pc.ontrack = event => {
-        remoteVideo.srcObject = event.streams[0];
-        remoteVideo.play().catch(() => {});
-        status.textContent = "Boshqa foydalanuvchi ulandi.";
-      };
-
-      pc.onicecandidate = event => {
-        if (event.candidate) {
-          socket.emit("ice-candidate", {
-            to: peerId,
-            candidate: event.candidate
-          });
-        }
-      };
-
-      pc.onconnectionstatechange = () => {
-        if (pc.connectionState === "failed") {
-          status.textContent =
-            "Video ulanishi amalga oshmadi. Tarmoqni tekshiring.";
-        }
-      };
-
-      return pc;
-    }
-
-    document.getElementById("join").onclick = async () => {
-      roomId = roomInput.value.trim();
-
-      if (!roomId) {
-        status.textContent = "Avval xona ID kiriting.";
-        return;
-      }
-
-      if (socket.connected === false) {
-        status.textContent = "Serverga ulanib bo‘lmadi. Qayta urinib ko‘ring.";
-        return;
-      }
-
-      try {
-        await startMedia();
-        socket.emit("join-room", roomId);
-        roomInput.disabled = true;
-        document.getElementById("join").disabled = true;
-        status.textContent = "Xonaga ulanmoqda: " + roomId;
-      } catch (error) {
-        status.textContent =
-          "Kamera yoki mikrofon ruxsatini tekshiring.";
-      }
-    };
-
-    socket.on("connect", () => {
-      status.textContent = "Serverga ulandi. Xona ID kiriting.";
-    });
-
-    socket.on("connect_error", () => {
-      status.textContent = "Serverga ulanishda xato yuz berdi.";
-    });
-
-    socket.on("user-joined", async peerId => {
-      try {
-        const pc = createPeer(peerId);
-        const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
-
-        socket.emit("offer", {
-          to: peerId,
-          offer: pc.localDescription
-        });
-      } catch (error) {
-        status.textContent = "Video ulanishini boshlashda xato.";
-      }
-    });
-
-    socket.on("offer", async ({ from, offer }) => {
-      try {
-        const pc = createPeer(from);
-        await pc.setRemoteDescription(offer);
-
-        const answer = await pc.createAnswer();
-        await pc.setLocalDescription(answer);
-
-        socket.emit("answer", {
-          to: from,
-          answer: pc.localDescription
-        });
-      } catch (error) {
-        status.textContent = "Video taklifini qabul qilib bo‘lmadi.";
-      }
-    });
-
-    socket.on("answer", async ({ from, answer }) => {
-      const pc = peers.get(from);
-      if (pc) {
-        await pc.setRemoteDescription(answer);
-      }
-    });
-
-    socket.on("ice-candidate", async ({ from, candidate }) => {
-      const pc = peers.get(from);
-      if (pc && candidate) {
-        try {
-          await pc.addIceCandidate(candidate);
-        } catch (error) {
-          console.error("ICE candidate xatosi:", error);
-        }
-      }
-    });
-
-    socket.on("chat-message", ({ message }) => {
-      showMessage("Do‘stingiz: " + message);
-    });
-
-    socket.on("user-left", peerId => {
-      const pc = peers.get(peerId);
-      if (pc) {
-        pc.close();
-        peers.delete(peerId);
-      }
-      remoteVideo.srcObject = null;
-      status.textContent = "Boshqa foydalanuvchi xonadan chiqdi.";
-    });
-
-    document.getElementById("camera").onclick = async () => {
-      try {
-        await startMedia();
-        const track = localStream.getVideoTracks()[0];
-        track.enabled = !track.enabled;
-        document.getElementById("camera").textContent =
-          track.enabled ? "Kamerani o‘chirish" : "Kamerani yoqish";
-      } catch (error) {
-        status.textContent = "Kameraga ruxsat berilmadi.";
-      }
-    };
-
-    document.getElementById("mic").onclick = async () => {
-      try {
-        await startMedia();
-        const track = localStream.getAudioTracks()[0];
-        track.enabled = !track.enabled;
-        document.getElementById("mic").textContent =
-          track.enabled ? "Mikrofonni o‘chirish" : "Mikrofonni yoqish";
-      } catch (error) {
-        status.textContent = "Mikrofonga ruxsat berilmadi.";
-      }
-    };
-
-    function sendMessage() {
-      const input = document.getElementById("message");
-      const message = input.value.trim();
-
-      if (!message) return;
-      if (!roomId) {
-        status.textContent = "Avval xonaga kiring.";
-        return;
-      }
-
-      showMessage("Siz: " + message);
-      socket.emit("chat-message", { room: roomId, message });
-      input.value = "";
-    }
-
-    document.getElementById("send").onclick = sendMessage;
-
-    document.getElementById("message").addEventListener("keydown", event => {
-      if (event.key === "Enter") sendMessage();
-    });
-  </script>
+let stream=null;
+async function startCamera(){
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+    const video=document.getElementById("localVideo");
+    video.srcObject=stream;
+    video.style.display="block";
+    document.getElementById("videoBox").style.display="none";
+    document.getElementById("videoStatus").textContent="Kamera va mikrofon yoqildi.";
+  }catch(e){
+    document.getElementById("videoStatus").textContent="Kamera/mikrofon ruxsatini tekshiring.";
+  }
+}
+document.getElementById("cameraButton").onclick=startCamera;
+document.getElementById("stopCamera").onclick=()=>{
+  if(stream)stream.getTracks().forEach(track=>track.stop());
+  stream=null;
+  document.getElementById("localVideo").style.display="none";
+  document.getElementById("videoBox").style.display="grid";
+  document.getElementById("videoStatus").textContent="Kamera o‘chirildi.";
+};
+document.getElementById("micButton").onclick=async()=>{
+  try{
+    if(!stream)stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
+    document.getElementById("voiceStatus").textContent="Mikrofon boshqarildi. Haqiqiy suhbat serveri hali ulanmagan.";
+  }catch(e){
+    document.getElementById("voiceStatus").textContent="Mikrofonga ruxsat berilmadi.";
+  }
+};
+document.getElementById("videoMicButton").onclick=()=>{
+  if(!stream){document.getElementById("videoStatus").textContent="Avval kamerani yoqing.";return;}
+  stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
+  document.getElementById("videoStatus").textContent="Mikrofon holati o‘zgartirildi.";
+};
+</script>
 </body>
 </html>
