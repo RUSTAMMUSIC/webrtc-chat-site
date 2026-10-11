@@ -14,10 +14,7 @@
       font-family: Arial, sans-serif;
       text-align: center;
     }
-    .app {
-      max-width: 800px;
-      margin: auto;
-    }
+    .app { max-width: 800px; margin: auto; }
     input, button {
       padding: 12px;
       margin: 5px;
@@ -30,9 +27,11 @@
       color: white;
       cursor: pointer;
     }
+    button:disabled { opacity: .5; cursor: not-allowed; }
     .videos {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
       margin-top: 20px;
     }
@@ -42,6 +41,7 @@
       min-height: 200px;
       background: #263449;
       border-radius: 12px;
+      object-fit: cover;
     }
     #messages {
       height: 150px;
@@ -50,7 +50,9 @@
       background: #1e293b;
       padding: 12px;
       border-radius: 8px;
+      overflow-wrap: anywhere;
     }
+    #status { overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
@@ -67,8 +69,8 @@
     </div>
 
     <p>
-      <button id="camera">Kamerani yoqish</button>
-      <button id="mic">Mikrofonni yoqish</button>
+      <button id="camera">Kamerani o‘chirish</button>
+      <button id="mic">Mikrofonni o‘chirish</button>
     </p>
 
     <h2>Chat</h2>
@@ -81,41 +83,222 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    const socket = io();
+
     const status = document.getElementById("status");
-    document.getElementById("join").onclick = () => {
-      status.textContent =
-        "Interfeys tayyor. Server ulanishi keyingi bosqichda sozlanadi.";
+    const roomInput = document.getElementById("room");
+    const localVideo = document.getElementById("localVideo");
+    const remoteVideo = document.getElementById("remoteVideo");
+    const messages = document.getElementById("messages");
+
+    let localStream = null;
+    let roomId = "";
+    const peers = new Map();
+
+    const iceConfig = {
+      iceServers: [
+        { urls: "stun:stun.l.google.com:19302" }
+      ]
     };
-    document.getElementById("camera").onclick = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true, audio: false
+
+    function showMessage(text) {
+      const line = document.createElement("p");
+      line.textContent = text;
+      messages.appendChild(line);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    async function startMedia() {
+      if (localStream) return;
+
+      localStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
+
+      localVideo.srcObject = localStream;
+      document.getElementById("camera").textContent = "Kamerani o‘chirish";
+      document.getElementById("mic").textContent = "Mikrofonni o‘chirish";
+    }
+
+    function createPeer(peerId) {
+      if (peers.has(peerId)) return peers.get(peerId);
+
+      const pc = new RTCPeerConnection(iceConfig);
+      peers.set(peerId, pc);
+
+      if (localStream) {
+        localStream.getTracks().forEach(track => {
+          pc.addTrack(track, localStream);
         });
-        document.getElementById("localVideo").srcObject = stream;
-        status.textContent = "Kamera ishlayapti.";
+      }
+
+      pc.ontrack = event => {
+        remoteVideo.srcObject = event.streams[0];
+        remoteVideo.play().catch(() => {});
+        status.textContent = "Boshqa foydalanuvchi ulandi.";
+      };
+
+      pc.onicecandidate = event => {
+        if (event.candidate) {
+          socket.emit("ice-candidate", {
+            to: peerId,
+            candidate: event.candidate
+          });
+        }
+      };
+
+      pc.onconnectionstatechange = () => {
+        if (pc.connectionState === "failed") {
+          status.textContent =
+            "Video ulanishi amalga oshmadi. Tarmoqni tekshiring.";
+        }
+      };
+
+      return pc;
+    }
+
+    document.getElementById("join").onclick = async () => {
+      roomId = roomInput.value.trim();
+
+      if (!roomId) {
+        status.textContent = "Avval xona ID kiriting.";
+        return;
+      }
+
+      if (socket.connected === false) {
+        status.textContent = "Serverga ulanib bo‘lmadi. Qayta urinib ko‘ring.";
+        return;
+      }
+
+      try {
+        await startMedia();
+        socket.emit("join-room", roomId);
+        roomInput.disabled = true;
+        document.getElementById("join").disabled = true;
+        status.textContent = "Xonaga ulanmoqda: " + roomId;
       } catch (error) {
-        status.textContent = "Kameraga ruxsat bering yoki HTTPS ni tekshiring.";
+        status.textContent =
+          "Kamera yoki mikrofon ruxsatini tekshiring.";
       }
     };
+
+    socket.on("connect", () => {
+      status.textContent = "Serverga ulandi. Xona ID kiriting.";
+    });
+
+    socket.on("connect_error", () => {
+      status.textContent = "Serverga ulanishda xato yuz berdi.";
+    });
+
+    socket.on("user-joined", async peerId => {
+      try {
+        const pc = createPeer(peerId);
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        socket.emit("offer", {
+          to: peerId,
+          offer: pc.localDescription
+        });
+      } catch (error) {
+        status.textContent = "Video ulanishini boshlashda xato.";
+      }
+    });
+
+    socket.on("offer", async ({ from, offer }) => {
+      try {
+        const pc = createPeer(from);
+        await pc.setRemoteDescription(offer);
+
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+
+        socket.emit("answer", {
+          to: from,
+          answer: pc.localDescription
+        });
+      } catch (error) {
+        status.textContent = "Video taklifini qabul qilib bo‘lmadi.";
+      }
+    });
+
+    socket.on("answer", async ({ from, answer }) => {
+      const pc = peers.get(from);
+      if (pc) {
+        await pc.setRemoteDescription(answer);
+      }
+    });
+
+    socket.on("ice-candidate", async ({ from, candidate }) => {
+      const pc = peers.get(from);
+      if (pc && candidate) {
+        try {
+          await pc.addIceCandidate(candidate);
+        } catch (error) {
+          console.error("ICE candidate xatosi:", error);
+        }
+      }
+    });
+
+    socket.on("chat-message", ({ message }) => {
+      showMessage("Do‘stingiz: " + message);
+    });
+
+    socket.on("user-left", peerId => {
+      const pc = peers.get(peerId);
+      if (pc) {
+        pc.close();
+        peers.delete(peerId);
+      }
+      remoteVideo.srcObject = null;
+      status.textContent = "Boshqa foydalanuvchi xonadan chiqdi.";
+    });
+
+    document.getElementById("camera").onclick = async () => {
+      try {
+        await startMedia();
+        const track = localStream.getVideoTracks()[0];
+        track.enabled = !track.enabled;
+        document.getElementById("camera").textContent =
+          track.enabled ? "Kamerani o‘chirish" : "Kamerani yoqish";
+      } catch (error) {
+        status.textContent = "Kameraga ruxsat berilmadi.";
+      }
+    };
+
     document.getElementById("mic").onclick = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true
-        });
-        stream.getAudioTracks().forEach(track => track.stop());
-        status.textContent = "Mikrofon ruxsati tekshirildi.";
+        await startMedia();
+        const track = localStream.getAudioTracks()[0];
+        track.enabled = !track.enabled;
+        document.getElementById("mic").textContent =
+          track.enabled ? "Mikrofonni o‘chirish" : "Mikrofonni yoqish";
       } catch (error) {
         status.textContent = "Mikrofonga ruxsat berilmadi.";
       }
     };
-    document.getElementById("send").onclick = () => {
+
+    function sendMessage() {
       const input = document.getElementById("message");
-      if (!input.value.trim()) return;
-      const line = document.createElement("p");
-      line.textContent = "Siz: " + input.value;
-      document.getElementById("messages").appendChild(line);
+      const message = input.value.trim();
+
+      if (!message) return;
+      if (!roomId) {
+        status.textContent = "Avval xonaga kiring.";
+        return;
+      }
+
+      showMessage("Siz: " + message);
+      socket.emit("chat-message", { room: roomId, message });
       input.value = "";
-    };
+    }
+
+    document.getElementById("send").onclick = sendMessage;
+
+    document.getElementById("message").addEventListener("keydown", event => {
+      if (event.key === "Enter") sendMessage();
+    });
   </script>
 </body>
 </html>
