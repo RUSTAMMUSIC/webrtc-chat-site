@@ -197,6 +197,56 @@ document.getElementById("videoMicButton").onclick=()=>{
   stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
   document.getElementById("videoStatus").textContent="Mikrofon holati o‘zgartirildi.";
 };
+  
+(async () => {
+  const { Room, RoomEvent } = await import(
+    "https://esm.sh/livekit-client@2"
+  );
+
+  const response = await fetch("/livekit-token", {
+    method: "POST"
+  });
+
+  if (!response.ok) {
+    document.getElementById("voiceStatus").textContent =
+      "Serverga ulanishda xato.";
+    return;
+  }
+
+  const data = await response.json();
+  const room = new Room();
+
+  await room.connect(data.url, data.token);
+
+  const messages = document.getElementById("messages");
+  const input = document.getElementById("message");
+  const send = document.getElementById("send");
+
+  messages.innerHTML = "";
+
+  room.on(RoomEvent.DataReceived, (payload) => {
+    const msg = JSON.parse(new TextDecoder().decode(payload));
+    const line = document.createElement("p");
+    line.textContent = msg;
+    messages.appendChild(line);
+  });
+
+  send.onclick = async () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    await room.localParticipant.publishData(
+      new TextEncoder().encode(JSON.stringify(text)),
+      { reliable: true }
+    );
+
+    const line = document.createElement("p");
+    line.textContent = "Siz: " + text;
+    messages.appendChild(line);
+    input.value = "";
+  };
+})().catch(error => console.error("Chat xatosi:", error));
+
 </script>
 </body>
 </html>
