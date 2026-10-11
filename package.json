@@ -1,14 +1,16 @@
-
+```json
 {
   "name": "webrtc-chat-site",
   "version": "1.0.0",
-  "description": "Video call and chat website",
+  "description": "Tanishamiz live chat",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.21.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "livekit-server-sdk": "^2.13.3"
   }
 }
+```
