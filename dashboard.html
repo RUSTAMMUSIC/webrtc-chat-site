@@ -1,0 +1,114 @@
+```html
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFTOR.UZ — Shaxsiy kabinet</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#fff;font-family:Arial,sans-serif}
+header{background:#202020;padding:20px 6%;border-bottom:2px solid #ffd21f}
+.logo{font-size:27px;font-weight:bold;color:#ffd21f}
+main{max-width:1100px;margin:35px auto;padding:20px}
+h1{font-size:30px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#202020;border:1px solid #393939;border-radius:12px;padding:22px}
+.card h3{color:#ffd21f;margin-top:0}
+.value{font-size:25px;font-weight:bold;margin:15px 0}
+.note{color:#bbb;font-size:14px;line-height:1.6}
+button{background:#ffd21f;color:#111;border:0;padding:12px 18px;border-radius:7px;font-weight:bold;cursor:pointer}
+a{color:#ffd21f}
+section{margin-top:30px}
+footer{text-align:center;padding:25px;color:#888}
+</style>
+</head>
+<body>
+<header><div class="logo">AFTOR.UZ <span style="color:white">| KABINET</span></div></header>
+<main>
+<h1>Shaxsiy kabinet</h1>
+<p class="note">AFTOR.UZ xizmatlari va murojaatlaringiz boshqaruvi.</p>
+
+<div class="cards">
+<div class="card">
+<h3>Kanallarim</h3>
+<div class="value" id="channelCount">0</div>
+<p class="note">Hozircha kanal qo‘shilmagan.</p>
+<button onclick="addChannel()">+ Kanal qo‘shish</button>
+</div>
+<div class="card">
+<h3>Daromad</h3>
+<div class="value">$0.00</div>
+<p class="note">Daromad ma’lumotlari hozircha ulanmagan.</p>
+</div>
+<div class="card">
+<h3>Murojaatlarim</h3>
+<div class="value" id="requestCount">0</div>
+<p class="note">Yuborgan xizmat so‘rovlaringiz.</p>
+</div>
+</div>
+
+<section class="card">
+<h2>📺 YouTube kanalini qo‘shish</h2>
+<p class="note">Kanal nomi yoki YouTube havolasini kiriting.</p>
+<input id="channelInput" placeholder="https://youtube.com/@kanalingiz"
+style="width:100%;padding:13px;margin:8px 0 14px;border-radius:6px;border:1px solid #555;background:#111;color:white">
+<br>
+<button onclick="saveChannel()">Kanalni saqlash</button>
+<div id="channelList" class="note" style="margin-top:15px"></div>
+</section>
+
+<section class="card">
+<h2>🛠 Xizmatga buyurtma</h2>
+<select id="service" style="width:100%;padding:13px;margin:8px 0;background:#111;color:white;border:1px solid #555">
+<option>Kanal boshqaruvi</option>
+<option>Mualliflik huquqi bo‘yicha maslahat</option>
+<option>Content ID bo‘yicha maslahat</option>
+<option>Kanal rivojlantirish strategiyasi</option>
+<option>Mualliflik da’vosini tekshirish</option>
+</select>
+<textarea id="details" placeholder="Murojaatingizni yozing..."
+style="width:100%;height:100px;padding:13px;margin:8px 0;background:#111;color:white;border:1px solid #555"></textarea>
+<br>
+<button onclick="sendRequest()">Murojaat yuborish</button>
+<p id="notice" class="note"></p>
+</section>
+
+<section class="card">
+<h2>👤 Hisob ma’lumotlari</h2>
+<p id="account">Google orqali kirgan hisobingiz serverda tekshirilmagan.</p>
+<p class="note">Bu dastlabki kabinet maketi. Ma’lumotlar hozircha serverga yuborilmaydi.</p>
+</section>
+</main>
+<footer>© <span id="year"></span> AFTOR.UZ — Media Services</footer>
+
+<script>
+let channels=[];
+let requests=[];
+function addChannel(){
+ document.getElementById('channelInput').focus();
+}
+function saveChannel(){
+ const input=document.getElementById('channelInput');
+ const value=input.value.trim();
+ if(!value){alert('Avval kanal havolasini kiriting.');return;}
+ channels.push(value);
+ document.getElementById('channelCount').textContent=channels.length;
+ document.getElementById('channelList').innerHTML=channels.map((c,i)=>
+ (i+1)+'. '+c).join('<br>');
+ input.value='';
+}
+function sendRequest(){
+ const details=document.getElementById('details').value.trim();
+ if(!details){alert('Murojaatingizni yozing.');return;}
+ requests.push({service:document.getElementById('service').value,details});
+ document.getElementById('requestCount').textContent=requests.length;
+ document.getElementById('notice').textContent=
+ 'Murojaat ushbu sahifada qayd etildi. Hozircha serverga yuborilmadi.';
+ document.getElementById('details').value='';
+}
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
+```
