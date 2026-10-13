@@ -743,10 +743,11 @@
       });
     });
 
-    document.getElementById('googleBtn').addEventListener('click', () => {
-  const clientId = '1050722368467-2a1m06heq2oaikj27t2jv0898o4vvpi2.apps.googleusercontent.com';
+    
+   document.getElementById('googleBtn').addEventListener('click', () => {
+  const clientId = '1050722368467-2a1m06heq2oaikj27t2jv0898o4vvp12.apps.googleusercontent.com';
 
-  const redirectUri = 'https://aftor.onrender.com';
+  const redirectUri = 'https://aftor.onrender.com/';
 
   const googleUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
   googleUrl.searchParams.set('client_id', clientId);
@@ -756,7 +757,7 @@
 
   window.location.href = googleUrl.toString();
 });
-
+    
     document.querySelectorAll('[data-lang]').forEach(button => {
       button.addEventListener('click', () => {
         const language = button.dataset.lang;
