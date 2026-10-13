@@ -744,8 +744,18 @@
     });
 
     document.getElementById('googleBtn').addEventListener('click', () => {
-      alert('Google orqali kirish hali sozlanmagan. Buning uchun Google OAuth ulanishi kerak.');
-    });
+  const clientId = '1050722368467-2a1m06heq2oaikj27t2jv0898o4vvpi2.apps.googleusercontent.com';
+
+  const redirectUri = 'https://aftor.onrender.com';
+
+  const googleUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+  googleUrl.searchParams.set('client_id', clientId);
+  googleUrl.searchParams.set('redirect_uri', redirectUri);
+  googleUrl.searchParams.set('response_type', 'token');
+  googleUrl.searchParams.set('scope', 'openid email profile');
+
+  window.location.href = googleUrl.toString();
+});
 
     document.querySelectorAll('[data-lang]').forEach(button => {
       button.addEventListener('click', () => {
