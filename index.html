@@ -3,250 +3,436 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TANISHAMIZ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="AFTOR.UZ — YouTube kanal boshqaruvi, musiqa va mualliflik huquqlari bo‘yicha xizmatlar.">
+<title>AFTOR.UZ — Media Services</title>
 <style>
+:root{--yellow:#ffd21f;--black:#111;--dark:#191919;--white:#fff;--muted:#b8b8b8;--line:#303030}
 *{box-sizing:border-box}
-:root{color-scheme:dark}
-body{margin:0;background:#0b1120;color:#f8fafc;font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer;border:0}
-.app{max-width:480px;min-height:100dvh;margin:auto;background:#111a2b;position:relative;padding-bottom:90px}
-header{padding:22px 20px 16px;background:#162238;border-bottom:1px solid #27344b}
-.brand{font-size:25px;font-weight:800;letter-spacing:-.7px}
-.subtitle{color:#9eacc3;font-size:13px;margin-top:7px}
-main{padding:20px}
-.page{display:none}
-.page.active{display:block}
-h2{font-size:23px;margin:0 0 8px}
-.desc{color:#9eacc3;font-size:14px;line-height:1.5;margin:0 0 22px}
-.field{display:block;width:100%;padding:15px;margin:10px 0;border:1px solid #34435d;border-radius:13px;background:#0c1424;color:white;outline:none}
-.field:focus{border-color:#60a5fa}
-.primary{width:100%;padding:15px;border-radius:13px;background:#3b82f6;color:white;font-weight:700;margin-top:8px}
-.secondary{padding:13px 16px;border-radius:12px;background:#263650;color:white}
-.switch{background:none;color:#60a5fa;margin-top:18px;width:100%;padding:10px}
-.card{background:#1a2740;border:1px solid #2a3954;border-radius:18px;padding:18px;margin:14px 0}
-.row{display:flex;align-items:center;gap:13px}
-.avatar{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:#304a70;font-size:21px;flex-shrink:0}
-.muted{color:#9eacc3;font-size:13px;line-height:1.5}
-.pill{display:inline-block;padding:6px 10px;background:#153b36;color:#6ee7b7;border-radius:20px;font-size:12px}
-.chatbox{height:45vh;min-height:230px;max-height:430px;overflow:auto;background:#0c1424;border-radius:16px;padding:12px;margin:14px 0}
-.bubble{background:#243653;border-radius:14px 14px 14px 4px;padding:11px 13px;margin:9px 0;max-width:85%;overflow-wrap:anywhere}
-.bubble.mine{margin-left:auto;background:#2563eb;border-radius:14px 14px 4px 14px}
-.composer{display:flex;gap:8px}
-.composer input{min-width:0;flex:1;margin:0}
-.composer button{padding:0 17px;border-radius:12px;background:#3b82f6;color:white}
-.big-icon{font-size:48px;text-align:center;margin:20px 0}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
-.round{width:62px;height:62px;border-radius:50%;background:#30415d;color:white;font-size:23px}
-.round.blue{background:#2563eb}
-.round.red{background:#dc3545}
-.video-box{height:220px;border-radius:18px;background:#080e19;border:1px solid #2a3954;display:grid;place-items:center;margin:14px 0;color:#9eacc3;text-align:center;padding:20px}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px 8px calc(10px + env(safe-area-inset-bottom));background:#162238;border-top:1px solid #2a3954}
-nav button{background:transparent;color:#91a0b8;padding:9px 2px;border-radius:12px;font-size:12px}
-nav button.active{background:#263b5d;color:#93c5fd}
-nav .symbol{display:block;font-size:21px;margin-bottom:5px}
-#status{font-size:13px;color:#9eacc3;line-height:1.5;margin-top:14px}
-@media(min-width:600px){body{padding:20px 0}.app{border:1px solid #2a3954;border-radius:22px;overflow:hidden;min-height:calc(100dvh - 40px)}nav{bottom:20px;border-radius:0 0 22px 22px}}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:#101010;color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1160px,92%);margin:auto}
+.top-ad{background:#242424;border-bottom:1px solid #393939;text-align:center;padding:13px 45px;position:relative;min-height:62px;display:flex;align-items:center;justify-content:center}
+.top-ad strong{color:var(--yellow)}
+.ad-text{font-size:14px}
+.ad-controls{position:absolute;right:4%;display:flex;gap:8px}
+.ad-controls button{background:#333;color:#fff;border:1px solid #555;border-radius:50%;width:30px;height:30px}
+header{background:#111;position:sticky;top:0;z-index:20;border-bottom:1px solid #333}
+.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1.5px;white-space:nowrap}
+.logo span{color:var(--yellow)}
+.navlinks{display:flex;gap:20px;align-items:center;font-size:13px;font-weight:700}
+.navlinks a:hover,.navlinks a:focus{color:var(--yellow)}
+.navright{display:flex;gap:8px;align-items:center}
+.lang{background:#222;color:#fff;border:1px solid #444;border-radius:7px;padding:8px;font-weight:700}
+.lang.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+.google{background:#fff;color:#171717;border:0;border-radius:8px;padding:11px 15px;font-weight:800;font-size:13px}
+.google:hover{background:#eee}
+.menu-btn{display:none;background:#222;color:white;border:1px solid #444;border-radius:8px;padding:8px}
+.hero{padding:78px 0 68px;background:radial-gradient(ellipse at 78% 25%,#383017 0,transparent 42%),#111}
+.eyebrow{color:var(--yellow);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:35px;align-items:center}
+h1{font-size:clamp(38px,6vw,70px);line-height:1.04;letter-spacing:-2px;margin:18px 0}
+h1 span{color:var(--yellow)}
+.hero p{max-width:610px;color:#c5c5c5;font-size:17px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:13px 19px;font-weight:800;border:1px solid transparent}
+.btn-yellow{background:var(--yellow);color:#111}
+.btn-outline{border-color:#555;color:#fff;background:transparent}
+.btn:hover{transform:translateY(-1px)}
+.hero-card{background:linear-gradient(145deg,#242424,#151515);border:1px solid #454545;border-radius:20px;padding:25px;box-shadow:0 20px 60px #0005}
+.hero-card .big{font-size:58px;font-weight:900;color:var(--yellow);line-height:1}
+.hero-card h3{font-size:23px;margin:15px 0 6px}
+.hero-card p{font-size:14px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:23px}
+.stat{padding:13px;border-radius:10px;background:#252525}
+.stat strong{display:block;color:var(--yellow);font-size:19px}
+.stat small{color:#ccc}
+section{padding:65px 0}
+.section-head{margin-bottom:28px}
+.section-head h2{font-size:clamp(27px,4vw,40px);line-height:1.2;margin:8px 0}
+.section-head p{color:var(--muted);max-width:680px}
+.platform-section{background:#171717;border-top:1px solid #292929;border-bottom:1px solid #292929}
+.logo-window{overflow:hidden;position:relative}
+.logo-track{display:flex;align-items:center;gap:16px;width:max-content;animation:slide 28s linear infinite}
+.logo-window:hover .logo-track{animation-play-state:paused}
+.platform{width:170px;height:78px;display:flex;align-items:center;justify-content:center;gap:9px;background:#222;border:1px solid #383838;border-radius:12px;font-size:14px;font-weight:800;flex-shrink:0}
+.platform b{font-size:23px;color:var(--yellow)}
+@keyframes slide{to{transform:translateX(-50%)}}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:#191919;border:1px solid #343434;border-radius:15px;padding:24px;transition:.2s}
+.card:hover{border-color:var(--yellow);transform:translateY(-3px)}
+.card-icon{width:46px;height:46px;border-radius:12px;background:#332c10;color:var(--yellow);display:grid;place-items:center;font-size:23px;font-weight:900}
+.card h3{font-size:18px;margin:18px 0 8px}
+.card p{font-size:14px;color:#bcbcbc;margin:0}
+.card a{display:inline-block;color:var(--yellow);font-size:13px;font-weight:800;margin-top:17px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{border-top:2px solid var(--yellow);padding:19px;background:#191919;border-radius:0 0 12px 12px}
+.step b{font-size:28px;color:var(--yellow)}
+.step h3{margin:8px 0}
+.step p{color:#bbb;font-size:14px}
+.cta{background:var(--yellow);color:#111;border-radius:18px;padding:35px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.cta h2{font-size:clamp(25px,4vw,38px);line-height:1.15;margin:0 0 8px}
+.cta p{margin:0}
+.cta .btn{background:#111;color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact-box{padding:25px;border:1px solid #333;border-radius:14px;background:#191919}
+.contact-box p{color:#bbb}
+.contact-box input,.contact-box textarea,.contact-box select{width:100%;padding:13px;margin:7px 0;background:#101010;border:1px solid #444;border-radius:8px;color:#fff;font:inherit}
+.contact-box textarea{min-height:110px;resize:vertical}
+footer{border-top:1px solid #333;padding:28px 0;color:#aaa;font-size:13px}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer a:hover{color:var(--yellow)}
+.note{font-size:12px;color:#999}
+.notice{display:none;margin-top:12px;color:var(--yellow);font-size:13px}
+@media(max-width:900px){
+ .navlinks{display:none;position:absolute;left:0;right:0;top:76px;background:#151515;padding:20px 5%;border-bottom:1px solid #333;flex-direction:column;align-items:flex-start}
+ .navlinks.open{display:flex}
+ .menu-btn{display:block}
+ .hero-grid{grid-template-columns:1fr}
+ .hero-card{max-width:520px}
+ .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:580px){
+ .logo{font-size:23px}
+ .nav{gap:8px}
+ .navright{gap:5px}
+ .lang{padding:7px 6px;font-size:12px}
+ .google{padding:9px;font-size:11px}
+ .hero{padding:50px 0}
+ section{padding:48px 0}
+ .cards,.steps,.contact-grid{grid-template-columns:1fr}
+ .cta{align-items:flex-start;flex-direction:column;padding:25px}
+ .ad-text{font-size:12px}
+}
 </style>
 </head>
 <body>
-<div class="app">
+<div class="top-ad" aria-label="Reklama banneri">
+  <div class="ad-text" id="adText"><strong>AFTOR.UZ</strong> — ijodkorlar uchun media xizmatlari</div>
+  <div class="ad-controls">
+    <button id="prevAd" aria-label="Oldingi banner">‹</button>
+    <button id="nextAd" aria-label="Keyingi banner">›</button>
+  </div>
+</div>
+
 <header>
-  <div class="brand">Tanishamiz</div>
-  <div class="subtitle">Suhbat uchun qulay va xavfsiz joy</div>
+ <div class="wrap nav">
+  <a class="logo" href="#home" aria-label="AFTOR.UZ bosh sahifa">AFTOR<span>.UZ</span></a>
+  <nav class="navlinks" id="navlinks">
+   <a href="#home" data-i="home">Bosh sahifa</a>
+   <a href="#services" data-i="services">Xizmatlar</a>
+   <a href="#pricing" data-i="pricing">Tariflar</a>
+   <a href="#partners" data-i="partners">Hamkorlar</a>
+   <a href="#contact" data-i="contact">Aloqa</a>
+  </nav>
+  <div class="navright">
+   <button class="lang active" data-lang="uz">UZ</button>
+   <button class="lang" data-lang="en">EN</button>
+   <button class="lang" data-lang="ru">RU</button>
+   <button class="google" id="googleBtn">G&nbsp; Google</button>
+   <button class="menu-btn" id="menuBtn" aria-label="Menyu">☰</button>
+  </div>
+ </div>
 </header>
 
 <main>
-<section class="page active" id="auth">
-  <div class="big-icon">💬</div>
-  <h2 id="authTitle">Xush kelibsiz!</h2>
-  <p class="desc">Davom etish uchun nik va parolingizni kiriting.</p>
-  <input class="field" id="nickname" placeholder="Nik (foydalanuvchi nomi)" maxlength="24" autocomplete="username">
-  <input class="field" id="password" type="password" placeholder="Parol" autocomplete="current-password">
-  <button class="primary" id="authButton">Kirish</button>
-  <button class="switch" id="switchAuth">Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish</button>
-  <p class="muted">Bu hozircha dizayn namunasi. Haqiqiy akkaunt yaratish keyingi bosqichda ulanadi.</p>
+<section class="hero" id="home">
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow" data-i="eyebrow">RAQAMLI MEDIA VA MUSIQA XIZMATLARI</div>
+   <h1 data-html="headline">IJODINGIZ QADRI<br><span>BIZ BILAN!</span></h1>
+   <p data-i="intro">YouTube kanallari, musiqa loyihalari va mualliflik huquqlari bo‘yicha xizmatlar. Ijodingizni rivojlantirish uchun professional hamkor.</p>
+   <div class="actions">
+    <a href="#services" class="btn btn-yellow" data-i="explore">Xizmatlarni ko‘rish →</a>
+    <button class="btn btn-outline" id="heroGoogle" data-i="register">Google orqali ro‘yxatdan o‘tish</button>
+   </div>
+   <p class="note" data-i="honest">Xizmatlar shartnoma va huquqlar tekshiruvi asosida ko‘rsatiladi. Natija kafolatlanmaydi.</p>
+  </div>
+  <div class="hero-card">
+   <div class="eyebrow" data-i="platformsLabel">IJODKORLAR UCHUN</div>
+   <div class="big">AFTOR.</div>
+   <h3 data-i="heroCardTitle">Sizning ijodingiz. Sizning huquqlaringiz.</h3>
+   <p data-i="heroCardDesc">Kontentni boshqarish va raqamli platformalarda rivojlanish uchun bir joyda xizmatlar.</p>
+   <div class="stats">
+    <div class="stat"><strong>3</strong><small data-i="languages">Sayt tili</small></div>
+    <div class="stat"><strong>24/7</strong><small data-i="online">Onlayn ma’lumot</small></div>
+   </div>
+  </div>
+ </div>
 </section>
 
-<section class="page" id="chat">
-  <h2>Chat</h2>
-  <p class="desc">Xabarlar va do‘stlar bilan yozishmalar.</p>
-  <div class="card row">
-    <div class="avatar">🌐</div>
-    <div><b>Umumiy chat</b><div class="muted">Hamma uchun suhbat xonasi</div></div>
-    <span class="pill">Ochiq</span>
+<section class="platform-section" id="partners">
+ <div class="wrap">
+  <div class="section-head">
+   <div class="eyebrow" data-i="ecosystem">RAQAMLI EKOTIZIM</div>
+   <h2 data-i="platformHeading">Siz foydalanadigan platformalar</h2>
+   <p data-i="platformDesc">Platforma nomlari tanishtirish maqsadida berilgan. AFTOR.UZ ushbu kompaniyalar bilan rasmiy hamkorligini tasdiqlamaydi.</p>
   </div>
-  <div class="chatbox" id="messages">
-    <p class="muted" id="emptyChat">Chat tayyor. Hozircha bu dizayn namunasi.</p>
+  <div class="logo-window">
+   <div class="logo-track" id="logoTrack">
+    <div class="platform"><b>▶</b>YouTube</div>
+    <div class="platform"><b>♫</b>YouTube Music</div>
+    <div class="platform"><b>●</b>Spotify</div>
+    <div class="platform"><b>♪</b>Apple Music</div>
+    <div class="platform"><b>Я</b>Yandex Music</div>
+    <div class="platform"><b>▰</b>Deezer</div>
+    <div class="platform"><b>♪</b>TikTok</div>
+    <div class="platform"><b>◎</b>Instagram</div>
+   </div>
   </div>
-  <div class="composer">
-    <input class="field" id="message" placeholder="Xabar yozing..." maxlength="1000">
-    <button id="send">➤</button>
-  </div>
-  <p class="muted">Xabarlar hozircha faqat shu qurilmada ko‘rinadi.</p>
+ </div>
 </section>
 
-<section class="page" id="voice">
-  <h2>Ovozli suhbat</h2>
-  <p class="desc">Ovoz orqali suhbatlashish uchun alohida bo‘lim.</p>
-  <div class="card" style="text-align:center;padding:28px 18px">
-    <div class="big-icon">🎙️</div>
-    <h3>Ovozli xona</h3>
-    <p class="muted">Mikrofon boshqaruvi va suhbatga ulanish shu yerda bo‘ladi.</p>
-    <div class="actions">
-      <button class="round blue" id="micButton" aria-label="Mikrofonni yoqish">🎤</button>
-    </div>
-    <p id="voiceStatus" class="muted">Ovozli suhbat hali ulanmagan.</p>
+<section id="services">
+ <div class="wrap">
+  <div class="section-head">
+   <div class="eyebrow" data-i="whatWeDo">NIMALAR QILAMIZ?</div>
+   <h2 data-i="servicesHeading">Xizmatlarimiz</h2>
+   <p data-i="servicesDesc">Kontentingizni tartibli boshqarish va auditoriyangizni rivojlantirishga yordam beruvchi xizmatlar.</p>
   </div>
+  <div class="cards">
+   <article class="card"><div class="card-icon">©</div><h3 data-i="s1">Mualliflik huquqi bo‘yicha yordam</h3><p data-i="sd1">Da’vo va ogohlantirishlarni tahlil qilish, hujjatlarni tayyorlash va qonuniy e’tiroz yuborish bo‘yicha maslahat.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+   <article class="card"><div class="card-icon">▶</div><h3 data-i="s2">YouTube kanal boshqaruvi</h3><p data-i="sd2">Kanal sozlamalari, kontent rejasi, tahlil va kundalik boshqaruv bo‘yicha yordam.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+   <article class="card"><div class="card-icon">◎</div><h3 data-i="s3">Hamkorlik va maslahat</h3><p data-i="sd3">Hamkorlik imkoniyatlarini o‘rganish, kanal holatini ko‘rib chiqish va keyingi qadamlarni rejalash.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+   <article class="card"><div class="card-icon">↗</div><h3 data-i="s4">Kanalni rivojlantirish</h3><p data-i="sd4">Kontent strategiyasi, sarlavha va tavsiflarni yaxshilash hamda auditoriya tahlili.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+   <article class="card"><div class="card-icon">♫</div><h3 data-i="s5">Musiqa va raqamli tarqatish</h3><p data-i="sd5">Musiqa relizlari, metadata va raqamli platformalarga tayyorlash bo‘yicha maslahat.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+   <article class="card"><div class="card-icon">✓</div><h3 data-i="s6">Da’vo va apellyatsiya hujjatlari</h3><p data-i="sd6">Faqat asosli holatlarda, tegishli dalillar va huquqiy vakolat mavjud bo‘lganda hujjat tayyorlashga ko‘mak.</p><a href="#contact" data-i="more">Batafsil →</a></article>
+  </div>
+ </div>
 </section>
 
-<section class="page" id="video">
-  <h2>Video qo‘ng‘iroq</h2>
-  <p class="desc">Kamera orqali yuzma-yuz suhbat.</p>
-  <div class="video-box" id="videoBox">📹<br>Kamera oynasi</div>
-  <video id="localVideo" autoplay muted playsinline style="display:none;width:100%;border-radius:16px"></video>
-  <div class="actions">
-    <button class="round blue" id="cameraButton" aria-label="Kamerani yoqish">📷</button>
-    <button class="round" id="videoMicButton" aria-label="Mikrofon">🎤</button>
-    <button class="round red" id="stopCamera" aria-label="Kamerani o‘chirish">✕</button>
+<section id="pricing" style="background:#171717">
+ <div class="wrap">
+  <div class="section-head">
+   <div class="eyebrow" data-i="simpleStart">BOSHLASH OSON</div>
+   <h2 data-i="pricingHeading">Tariflar va takliflar</h2>
+   <p data-i="pricingDesc">Narxlar xizmat hajmi va ehtiyojingiz aniqlangandan so‘ng kelishiladi.</p>
   </div>
-  <p id="videoStatus" class="muted">Kamera hali yoqilmagan.</p>
-  <p class="muted">Boshqa odam bilan haqiqiy videoaloqa keyingi bosqichda ulanadi.</p>
+  <div class="cards">
+   <article class="card"><div class="card-icon">01</div><h3 data-i="p1">Boshlang‘ich maslahat</h3><p data-i="pd1">Vaziyatni dastlabki ko‘rib chiqish va mos xizmatni tanlash.</p><a href="#contact" data-i="askPrice">Narxni so‘rash →</a></article>
+   <article class="card"><div class="card-icon">02</div><h3 data-i="p2">Kanal xizmatlari</h3><p data-i="pd2">Kanal ehtiyojlariga qarab individual xizmatlar to‘plami.</p><a href="#contact" data-i="askPrice">Narxni so‘rash →</a></article>
+   <article class="card"><div class="card-icon">03</div><h3 data-i="p3">Hamkorlik taklifi</h3><p data-i="pd3">Ijodkorlar, huquq egalari va media loyihalari uchun muhokama.</p><a href="#contact" data-i="askPrice">Narxni so‘rash →</a></article>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow" data-i="how">QANDAY ISHLAYMIZ?</div><h2 data-i="stepsTitle">Uchta oddiy qadam</h2></div>
+  <div class="steps">
+   <div class="step"><b>01</b><h3 data-i="step1">Murojaat qiling</h3><p data-i="stepd1">Qaysi xizmat kerakligini va loyihangiz haqida yozing.</p></div>
+   <div class="step"><b>02</b><h3 data-i="step2">Holatni ko‘rib chiqamiz</h3><p data-i="stepd2">Imkoniyatlar, hujjatlar va xizmat shartlarini kelishamiz.</p></div>
+   <div class="step"><b>03</b><h3 data-i="step3">Reja tuzamiz</h3><p data-i="stepd3">Kelishilgan vazifalar va keyingi qadamlarni belgilaymiz.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <div class="cta">
+   <div><h2 data-i="ctaTitle">Loyihangizni rivojlantirishga tayyormisiz?</h2><p data-i="ctaDesc">Bizga yozing va ehtiyojingizni muhokama qilaylik.</p></div>
+   <a href="#contact" class="btn" data-i="contactUs">Biz bilan bog‘lanish</a>
+  </div>
+ </div>
+</section>
+
+<section id="contact">
+ <div class="wrap">
+  <div class="section-head"><div class="eyebrow" data-i="contactLabel">ALOQA</div><h2 data-i="contactHeading">Loyihangiz haqida yozing</h2><p data-i="contactDesc">Quyidagi shakl hozircha namuna. Xabar yuborish uchun email yoki server ulanishi sozlanishi kerak.</p></div>
+  <div class="contact-grid">
+   <div class="contact-box">
+    <h3 data-i="sendRequest">Murojaat shakli</h3>
+    <form id="contactForm">
+     <input name="name" required autocomplete="name" placeholder="Ismingiz" data-ph="namePh">
+     <input name="email" type="email" required autocomplete="email" placeholder="Email manzilingiz" data-ph="emailPh">
+     <select name="service" id="serviceSelect">
+      <option value="rights" data-i="s1">Mualliflik huquqi bo‘yicha yordam</option>
+      <option value="youtube" data-i="s2">YouTube kanal boshqaruvi</option>
+      <option value="partner" data-i="s3">Hamkorlik va maslahat</option>
+      <option value="growth" data-i="s4">Kanalni rivojlantirish</option>
+      <option value="music" data-i="s5">Musiqa va raqamli tarqatish</option>
+     </select>
+     <textarea name="message" required placeholder="Murojaatingiz..." data-ph="messagePh"></textarea>
+     <button class="btn btn-yellow" type="submit" data-i="prepareEmail">Email uchun tayyorlash</button>
+     <div class="notice" id="formNotice" role="status"></div>
+    </form>
+   </div>
+   <div class="contact-box">
+    <h3 data-i="directContact">Bog‘lanish</h3>
+    <p data-i="contactInfo">Rasmiy email manzili va ijtimoiy tarmoq havolalarini sayt ishga tushirilishidan oldin shu yerga kiriting.</p>
+    <p><strong>AFTOR.UZ</strong></p>
+    <p class="note" data-i="businessNote">Kompaniya rekvizitlari, xizmat shartlari va maxfiylik siyosatini haqiqiy ma’lumotlar bilan to‘ldiring.</p>
+   </div>
+  </div>
+ </div>
 </section>
 </main>
 
-<nav>
-  <button class="active" data-page="chat"><span class="symbol">💬</span>Chat</button>
-  <button data-page="voice"><span class="symbol">🎙️</span>Ovozli suhbat</button>
-  <button data-page="video"><span class="symbol">📹</span>Video qo‘ng‘iroq</button>
-</nav>
-</div>
+<footer>
+ <div class="wrap footer-row">
+  <a class="logo" href="#home">AFTOR<span>.UZ</span></a>
+  <span>© <span id="year"></span> AFTOR.UZ</span>
+  <div><a href="#contact" data-i="contact">Aloqa</a> · <a href="#privacy" id="privacyLink" data-i="privacy">Maxfiylik</a></div>
+ </div>
+ <div class="wrap"><p class="note" data-i="disclaimer">AFTOR.UZ mustaqil loyiha. Rasmiy hamkorlik tasdiqlanmaguncha YouTube yoki boshqa platformalar nomidan ish yuritmaydi.</p></div>
+</footer>
 
 <script>
-const pages = ["auth","chat","voice","video"];
-function openPage(name){
-  pages.forEach(id=>document.getElementById(id).classList.toggle("active",id===name));
-  document.querySelectorAll("nav button").forEach(btn=>btn.classList.toggle("active",btn.dataset.page===name));
+const translations={
+uz:{
+home:"Bosh sahifa",services:"Xizmatlar",pricing:"Tariflar",partners:"Hamkorlar",contact:"Aloqa",
+eyebrow:"RAQAMLI MEDIA VA MUSIQA XIZMATLARI",headline:'IJODINGIZ QADRI<br><span>BIZ BILAN!</span>',
+intro:"YouTube kanallari, musiqa loyihalari va mualliflik huquqlari bo‘yicha xizmatlar. Ijodingizni rivojlantirish uchun professional hamkor.",
+explore:"Xizmatlarni ko‘rish →",register:"Google orqali ro‘yxatdan o‘tish",honest:"Xizmatlar shartnoma va huquqlar tekshiruvi asosida ko‘rsatiladi. Natija kafolatlanmaydi.",
+platformsLabel:"IJODKORLAR UCHUN",heroCardTitle:"Sizning ijodingiz. Sizning huquqlaringiz.",heroCardDesc:"Kontentni boshqarish va raqamli platformalarda rivojlanish uchun bir joyda xizmatlar.",
+languages:"Sayt tili",online:"Onlayn ma’lumot",ecosystem:"RAQAMLI EKOTIZIM",platformHeading:"Siz foydalanadigan platformalar",
+platformDesc:"Platforma nomlari tanishtirish maqsadida berilgan. AFTOR.UZ ushbu kompaniyalar bilan rasmiy hamkorligini tasdiqlamaydi.",
+whatWeDo:"NIMALAR QILAMIZ?",servicesHeading:"Xizmatlarimiz",servicesDesc:"Kontentingizni tartibli boshqarish va auditoriyangizni rivojlantirishga yordam beruvchi xizmatlar.",
+s1:"Mualliflik huquqi bo‘yicha yordam",sd1:"Da’vo va ogohlantirishlarni tahlil qilish, hujjatlarni tayyorlash va qonuniy e’tiroz yuborish bo‘yicha maslahat.",
+s2:"YouTube kanal boshqaruvi",sd2:"Kanal sozlamalari, kontent rejasi, tahlil va kundalik boshqaruv bo‘yicha yordam.",
+s3:"Hamkorlik va maslahat",sd3:"Hamkorlik imkoniyatlarini o‘rganish, kanal holatini ko‘rib chiqish va keyingi qadamlarni rejalash.",
+s4:"Kanalni rivojlantirish",sd4:"Kontent strategiyasi, sarlavha va tavsiflarni yaxshilash hamda auditoriya tahlili.",
+s5:"Musiqa va raqamli tarqatish",sd5:"Musiqa relizlari, metadata va raqamli platformalarga tayyorlash bo‘yicha maslahat.",
+s6:"Da’vo va apellyatsiya hujjatlari",sd6:"Faqat asosli holatlarda, tegishli dalillar va huquqiy vakolat mavjud bo‘lganda hujjat tayyorlashga ko‘mak.",
+more:"Batafsil →",simpleStart:"BOSHLASH OSON",pricingHeading:"Tariflar va takliflar",pricingDesc:"Narxlar xizmat hajmi va ehtiyojingiz aniqlangandan so‘ng kelishiladi.",
+p1:"Boshlang‘ich maslahat",pd1:"Vaziyatni dastlabki ko‘rib chiqish va mos xizmatni tanlash.",p2:"Kanal xizmatlari",pd2:"Kanal ehtiyojlariga qarab individual xizmatlar to‘plami.",
+p3:"Hamkorlik taklifi",pd3:"Ijodkorlar, huquq egalari va media loyihalari uchun muhokama.",askPrice:"Narxni so‘rash →",
+how:"QANDAY ISHLAYMIZ?",stepsTitle:"Uchta oddiy qadam",step1:"Murojaat qiling",stepd1:"Qaysi xizmat kerakligini va loyihangiz haqida yozing.",
+step2:"Holatni ko‘rib chiqamiz",stepd2:"Imkoniyatlar, hujjatlar va xizmat shartlarini kelishamiz.",step3:"Reja tuzamiz",stepd3:"Kelishilgan vazifalar va keyingi qadamlarni belgilaymiz.",
+ctaTitle:"Loyihangizni rivojlantirishga tayyormisiz?",ctaDesc:"Bizga yozing va ehtiyojingizni muhokama qilaylik.",contactUs:"Biz bilan bog‘lanish",
+contactLabel:"ALOQA",contactHeading:"Loyihangiz haqida yozing",contactDesc:"Quyidagi shakl hozircha namuna. Xabar yuborish uchun email yoki server ulanishi sozlanishi kerak.",
+sendRequest:"Murojaat shakli",namePh:"Ismingiz",emailPh:"Email manzilingiz",messagePh:"Murojaatingiz...",prepareEmail:"Email uchun tayyorlash",
+directContact:"Bog‘lanish",contactInfo:"Rasmiy email manzili va ijtimoiy tarmoq havolalarini sayt ishga tushirilishidan oldin shu yerga kiriting.",
+businessNote:"Kompaniya rekvizitlari, xizmat shartlari va maxfiylik siyosatini haqiqiy ma’lumotlar bilan to‘ldiring.",
+privacy:"Maxfiylik",disclaimer:"AFTOR.UZ mustaqil loyiha. Rasmiy hamkorlik tasdiqlanmaguncha YouTube yoki boshqa platformalar nomidan ish yuritmaydi.",
+ads:["AFTOR.UZ — ijodkorlar uchun media xizmatlari","YouTube kanalingizni rivojlantirish rejasini bugun boshlang","Musiqa va mualliflik huquqlari bo‘yicha maslahat oling"]
+},
+en:{
+home:"Home",services:"Services",pricing:"Pricing",partners:"Platforms",contact:"Contact",
+eyebrow:"DIGITAL MEDIA & MUSIC SERVICES",headline:'YOUR CREATIVITY<br><span>MATTERS HERE.</span>',
+intro:"Services for YouTube channels, music projects and copyright matters. A professional partner to help you develop your creative work.",
+explore:"Explore services →",register:"Register with Google",honest:"Services are subject to agreements and rights verification. Results are not guaranteed.",
+platformsLabel:"FOR CREATORS",heroCardTitle:"Your creativity. Your rights.",heroCardDesc:"Content management and digital-platform guidance in one place.",
+languages:"Website languages",online:"Online information",ecosystem:"DIGITAL ECOSYSTEM",platformHeading:"Platforms you use",
+platformDesc:"Platform names are shown for informational purposes. AFTOR.UZ does not claim official affiliation with these companies.",
+whatWeDo:"WHAT WE DO",servicesHeading:"Our services",servicesDesc:"Services to help manage your content and develop your audience.",
+s1:"Copyright assistance",sd1:"Guidance on reviewing claims and notices, preparing documents and submitting legitimate disputes.",
+s2:"YouTube channel management",sd2:"Help with channel settings, content planning, analytics and day-to-day management.",
+s3:"Partnership guidance",sd3:"Explore partnership options, review channel status and plan next steps.",
+s4:"Channel growth",sd4:"Content strategy, improved titles and descriptions, and audience analysis.",
+s5:"Music and digital distribution",sd5:"Guidance on music releases, metadata and preparing releases for digital platforms.",
+s6:"Claims and appeal documents",sd6:"Help preparing documents where there are valid grounds, supporting evidence and proper authority.",
+more:"Learn more →",simpleStart:"GET STARTED",pricingHeading:"Plans and proposals",pricingDesc:"Pricing is discussed after your needs and the scope of work are established.",
+p1:"Initial consultation",pd1:"An initial review of your situation and guidance on suitable services.",p2:"Channel services",pd2:"A tailored set of services based on your channel's needs.",
+p3:"Partnership proposal",pd3:"Discussion for creators, rights holders and media projects.",askPrice:"Request pricing →",
+how:"HOW IT WORKS",stepsTitle:"Three simple steps",step1:"Contact us",stepd1:"Tell us which service you need and about your project.",
+step2:"We review your needs",stepd2:"Discuss options, documents and service terms.",step3:"Make a plan",stepd3:"Agree on tasks and define the next steps.",
+ctaTitle:"Ready to develop your project?",ctaDesc:"Contact us to discuss what you need.",contactUs:"Contact us",
+contactLabel:"CONTACT",contactHeading:"Tell us about your project",contactDesc:"This form is a demo. Email or server integration is needed to deliver messages.",
+sendRequest:"Contact form",namePh:"Your name",emailPh:"Your email address",messagePh:"Your message...",prepareEmail:"Prepare email",
+directContact:"Get in touch",contactInfo:"Add your official email address and social links here before launching the website.",
+businessNote:"Complete company details, service terms and privacy policy with accurate information.",
+privacy:"Privacy",disclaimer:"AFTOR.UZ is an independent project. It does not represent YouTube or other platforms unless official affiliation is confirmed.",
+ads:["AFTOR.UZ — media services for creators","Start planning your YouTube channel growth today","Get guidance on music and copyright matters"]
+},
+ru:{
+home:"Главная",services:"Услуги",pricing:"Тарифы",partners:"Платформы",contact:"Контакты",
+eyebrow:"ЦИФРОВЫЕ МЕДИА И МУЗЫКАЛЬНЫЕ УСЛУГИ",headline:'ВАШЕ ТВОРЧЕСТВО<br><span>ИМЕЕТ ЦЕННОСТЬ.</span>',
+intro:"Услуги для YouTube-каналов, музыкальных проектов и вопросов авторского права. Профессиональная помощь в развитии вашего творчества.",
+explore:"Наши услуги →",register:"Регистрация через Google",honest:"Услуги предоставляются после согласования условий и проверки прав. Результат не гарантируется.",
+platformsLabel:"ДЛЯ АВТОРОВ",heroCardTitle:"Ваше творчество. Ваши права.",heroCardDesc:"Управление контентом и помощь в развитии на цифровых платформах в одном месте.",
+languages:"Языка сайта",online:"Информация онлайн",ecosystem:"ЦИФРОВАЯ ЭКОСИСТЕМА",platformHeading:"Платформы, которыми вы пользуетесь",
+platformDesc:"Названия платформ приведены для информации. AFTOR.UZ не заявляет об официальном партнёрстве с этими компаниями.",
+whatWeDo:"ЧЕМ МЫ ЗАНИМАЕМСЯ",servicesHeading:"Наши услуги",servicesDesc:"Помощь в управлении контентом и развитии аудитории.",
+s1:"Помощь по авторским правам",sd1:"Консультации по анализу претензий и уведомлений, подготовке документов и подаче обоснованных возражений.",
+s2:"Управление YouTube-каналом",sd2:"Помощь с настройками канала, контент-планом, аналитикой и текущим управлением.",
+s3:"Консультации по партнёрству",sd3:"Изучение возможностей сотрудничества, анализ состояния канала и планирование дальнейших шагов.",
+s4:"Развитие канала",sd4:"Контент-стратегия, улучшение заголовков и описаний, анализ аудитории.",
+s5:"Музыка и цифровая дистрибуция",sd5:"Консультации по релизам, метаданным и подготовке музыки для цифровых платформ.",
+s6:"Документы по претензиям и апелляциям",sd6:"Помощь с документами при наличии законных оснований, доказательств и необходимых полномочий.",
+more:"Подробнее →",simpleStart:"НАЧАТЬ ПРОСТО",pricingHeading:"Тарифы и предложения",pricingDesc:"Стоимость обсуждается после уточнения объёма работ и ваших потребностей.",
+p1:"Первичная консультация",pd1:"Первичный разбор ситуации и рекомендации по подходящим услугам.",p2:"Услуги для канала",pd2:"Индивидуальный набор услуг с учётом потребностей канала.",
+p3:"Предложение о сотрудничестве",pd3:"Обсуждение проектов для авторов, правообладателей и медиакоманд.",askPrice:"Узнать стоимость →",
+how:"КАК МЫ РАБОТАЕМ",stepsTitle:"Три простых шага",step1:"Свяжитесь с нами",stepd1:"Расскажите, какая услуга вам нужна, и опишите проект.",
+step2:"Изучим ситуацию",stepd2:"Обсудим возможности, документы и условия услуг.",step3:"Составим план",stepd3:"Согласуем задачи и определим следующие шаги.",
+ctaTitle:"Готовы развивать свой проект?",ctaDesc:"Напишите нам, чтобы обсудить ваши задачи.",contactUs:"Связаться с нами",
+contactLabel:"КОНТАКТЫ",contactHeading:"Расскажите о своём проекте",contactDesc:"Пока это демонстрационная форма. Для отправки сообщений нужно настроить почту или сервер.",
+sendRequest:"Форма обращения",namePh:"Ваше имя",emailPh:"Ваш адрес электронной почты",messagePh:"Ваше сообщение...",prepareEmail:"Подготовить письмо",
+directContact:"Связаться",contactInfo:"Перед запуском добавьте здесь официальный адрес электронной почты и ссылки на соцсети.",
+businessNote:"Заполните реквизиты компании, условия услуг и политику конфиденциальности достоверными данными.",
+privacy:"Конфиденциальность",disclaimer:"AFTOR.UZ — независимый проект. Он не представляет YouTube или другие платформы без подтверждённого официального партнёрства.",
+ads:["AFTOR.UZ — медиасервисы для авторов","Начните планировать развитие YouTube-канала уже сегодня","Получите консультацию по музыке и авторским правам"]
 }
-document.querySelectorAll("nav button").forEach(btn=>{
-  btn.onclick=()=>openPage(btn.dataset.page);
+};
+
+let lang="uz",adIndex=0;
+const $=(s)=>document.querySelector(s);
+function setLanguage(next){
+ lang=translations[next]?next:"uz";
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+ document.querySelectorAll("[data-i]").forEach(el=>{
+  const key=el.dataset.i;
+  if(translations[lang][key]!==undefined)el.textContent=translations[lang][key];
+ });
+ document.querySelectorAll("[data-html]").forEach(el=>{
+  const key=el.dataset.html;
+  if(translations[lang][key]!==undefined)el.innerHTML=translations[lang][key];
+ });
+ document.querySelectorAll("[data-ph]").forEach(el=>{
+  const key=el.dataset.ph;
+  if(translations[lang][key])el.placeholder=translations[lang][key];
+ });
+ const options=$("#serviceSelect").options;
+ const keys=["s1","s2","s3","s4","s5"];
+ [...options].forEach((o,i)=>{if(translations[lang][keys[i]])o.textContent=translations[lang][keys[i]]});
+ updateAd();
+}
+function updateAd(){$("#adText").textContent=translations[lang].ads[adIndex%translations[lang].ads.length]}
+document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+$("#prevAd").addEventListener("click",()=>{adIndex=(adIndex+2)%3;updateAd()});
+$("#nextAd").addEventListener("click",()=>{adIndex=(adIndex+1)%3;updateAd()});
+setInterval(()=>{adIndex=(adIndex+1)%3;updateAd()},6000);
+$("#menuBtn").addEventListener("click",()=>$("#navlinks").classList.toggle("open"));
+document.querySelectorAll("#navlinks a").forEach(a=>a.addEventListener("click",()=>$("#navlinks").classList.remove("open")));
+function googleNotice(){
+ const messages={
+ uz:"Google orqali kirish hali ulanmagan. Buning uchun Google OAuth yoki Firebase Authentication sozlanishi kerak.",
+ en:"Google sign-in is not connected yet. Google OAuth or Firebase Authentication must be configured.",
+ ru:"Вход через Google пока не подключён. Необходимо настроить Google OAuth или Firebase Authentication."
+ };
+ alert(messages[lang]);
+}
+$("#googleBtn").addEventListener("click",googleNotice);
+$("#heroGoogle").addEventListener("click",googleNotice);
+$("#contactForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const f=new FormData(e.target);
+ const subject=encodeURIComponent("AFTOR.UZ — "+f.get("service"));
+ const body=encodeURIComponent("Name: "+f.get("name")+"\nEmail: "+f.get("email")+"\nService: "+f.get("service")+"\n\n"+f.get("message"));
+ const notice=$("#formNotice");
+ const msgs={
+ uz:"Email dasturi ochilishi mumkin. Haqiqiy qabul qiluvchi email manzili sozlanmaguncha xabar yuborilgan hisoblanmaydi.",
+ en:"Your email app may open. The message is not sent until a real recipient email is configured.",
+ ru:"Может открыться почтовая программа. Сообщение не отправлено, пока не указан действующий адрес получателя."
+ };
+ notice.textContent=msgs[lang];notice.style.display="block";
+ /* Add a real business email before enabling mailto submission. */
 });
-
-let registering=false;
-document.getElementById("switchAuth").onclick=()=>{
-  registering=!registering;
-  document.getElementById("authTitle").textContent=registering?"Hisob yaratish":"Xush kelibsiz!";
-  document.getElementById("authButton").textContent=registering?"Ro‘yxatdan o‘tish":"Kirish";
-  document.getElementById("switchAuth").textContent=registering?"Hisobingiz bormi? Kirish":"Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish";
-  document.getElementById("password").autocomplete=registering?"new-password":"current-password";
-};
-document.getElementById("authButton").onclick=()=>{
-  alert("Bu faqat dizayn namunasi. Haqiqiy nik va parol tizimini keyingi bosqichda ulaymiz.");
-};
-
-const messages=document.getElementById("messages");
-function sendMessage(){
-  const input=document.getElementById("message");
-  const value=input.value.trim();
-  if(!value)return;
-  const empty=document.getElementById("emptyChat");
-  if(empty)empty.remove();
-  const bubble=document.createElement("div");
-  bubble.className="bubble mine";
-  bubble.textContent=value;
-  messages.appendChild(bubble);
-  messages.scrollTop=messages.scrollHeight;
-  input.value="";
-}
-document.getElementById("send").onclick=sendMessage;
-document.getElementById("message").addEventListener("keydown",e=>{if(e.key==="Enter")sendMessage();});
-
-let stream=null;
-async function startCamera(){
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-    const video=document.getElementById("localVideo");
-    video.srcObject=stream;
-    video.style.display="block";
-    document.getElementById("videoBox").style.display="none";
-    document.getElementById("videoStatus").textContent="Kamera va mikrofon yoqildi.";
-  }catch(e){
-    document.getElementById("videoStatus").textContent="Kamera/mikrofon ruxsatini tekshiring.";
-  }
-}
-document.getElementById("cameraButton").onclick=startCamera;
-document.getElementById("stopCamera").onclick=()=>{
-  if(stream)stream.getTracks().forEach(track=>track.stop());
-  stream=null;
-  document.getElementById("localVideo").style.display="none";
-  document.getElementById("videoBox").style.display="grid";
-  document.getElementById("videoStatus").textContent="Kamera o‘chirildi.";
-};
-document.getElementById("micButton").onclick=async()=>{
-  try{
-    if(!stream)stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
-    document.getElementById("voiceStatus").textContent="Mikrofon boshqarildi. Haqiqiy suhbat serveri hali ulanmagan.";
-  }catch(e){
-    document.getElementById("voiceStatus").textContent="Mikrofonga ruxsat berilmadi.";
-  }
-};
-document.getElementById("videoMicButton").onclick=()=>{
-  if(!stream){document.getElementById("videoStatus").textContent="Avval kamerani yoqing.";return;}
-  stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
-  document.getElementById("videoStatus").textContent="Mikrofon holati o‘zgartirildi.";
-};
-  
-(async () => {
-  const { Room, RoomEvent } = await import(
-    "https://esm.sh/livekit-client@2"
-  );
-
-  const response = await fetch("/livekit-token", {
-    method: "POST"
-  });
-
-  if (!response.ok) {
-    document.getElementById("voiceStatus").textContent =
-      "Serverga ulanishda xato.";
-    return;
-  }
-
-  const data = await response.json();
-  const room = new Room();
-
-  await room.connect(data.url, data.token);
-
-  const messages = document.getElementById("messages");
-  const input = document.getElementById("message");
-  const send = document.getElementById("send");
-
-  messages.innerHTML = "";
-
-  room.on(RoomEvent.DataReceived, (payload) => {
-    const msg = JSON.parse(new TextDecoder().decode(payload));
-    const line = document.createElement("p");
-    line.textContent = msg;
-    messages.appendChild(line);
-  });
-
-  send.onclick = async () => {
-    const text = input.value.trim();
-    if (!text) return;
-
-    await room.localParticipant.publishData(
-      new TextEncoder().encode(JSON.stringify(text)),
-      { reliable: true }
-    );
-
-    const line = document.createElement("p");
-    line.textContent = "Siz: " + text;
-    messages.appendChild(line);
-    input.value = "";
-  };
-})().catch(error => console.error("Chat xatosi:", error));
-
+$("#privacyLink").addEventListener("click",e=>{
+ e.preventDefault();
+ const msg={
+ uz:"Maxfiylik siyosatini ishga tushirishdan oldin haqiqiy kompaniya ma’lumotlari va ma’lumotlarni qayta ishlash tartibi bilan to‘ldiring.",
+ en:"Before launch, publish a privacy policy with accurate company details and data-processing practices.",
+ ru:"Перед запуском опубликуйте политику конфиденциальности с достоверными данными компании и порядком обработки данных."
+ };
+ alert(msg[lang]);
+});
+$("#year").textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
