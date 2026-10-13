@@ -1,252 +1,779 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TANISHAMIZ</title>
-<style>
-*{box-sizing:border-box}
-:root{color-scheme:dark}
-body{margin:0;background:#0b1120;color:#f8fafc;font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer;border:0}
-.app{max-width:480px;min-height:100dvh;margin:auto;background:#111a2b;position:relative;padding-bottom:90px}
-header{padding:22px 20px 16px;background:#162238;border-bottom:1px solid #27344b}
-.brand{font-size:25px;font-weight:800;letter-spacing:-.7px}
-.subtitle{color:#9eacc3;font-size:13px;margin-top:7px}
-main{padding:20px}
-.page{display:none}
-.page.active{display:block}
-h2{font-size:23px;margin:0 0 8px}
-.desc{color:#9eacc3;font-size:14px;line-height:1.5;margin:0 0 22px}
-.field{display:block;width:100%;padding:15px;margin:10px 0;border:1px solid #34435d;border-radius:13px;background:#0c1424;color:white;outline:none}
-.field:focus{border-color:#60a5fa}
-.primary{width:100%;padding:15px;border-radius:13px;background:#3b82f6;color:white;font-weight:700;margin-top:8px}
-.secondary{padding:13px 16px;border-radius:12px;background:#263650;color:white}
-.switch{background:none;color:#60a5fa;margin-top:18px;width:100%;padding:10px}
-.card{background:#1a2740;border:1px solid #2a3954;border-radius:18px;padding:18px;margin:14px 0}
-.row{display:flex;align-items:center;gap:13px}
-.avatar{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:#304a70;font-size:21px;flex-shrink:0}
-.muted{color:#9eacc3;font-size:13px;line-height:1.5}
-.pill{display:inline-block;padding:6px 10px;background:#153b36;color:#6ee7b7;border-radius:20px;font-size:12px}
-.chatbox{height:45vh;min-height:230px;max-height:430px;overflow:auto;background:#0c1424;border-radius:16px;padding:12px;margin:14px 0}
-.bubble{background:#243653;border-radius:14px 14px 14px 4px;padding:11px 13px;margin:9px 0;max-width:85%;overflow-wrap:anywhere}
-.bubble.mine{margin-left:auto;background:#2563eb;border-radius:14px 14px 4px 14px}
-.composer{display:flex;gap:8px}
-.composer input{min-width:0;flex:1;margin:0}
-.composer button{padding:0 17px;border-radius:12px;background:#3b82f6;color:white}
-.big-icon{font-size:48px;text-align:center;margin:20px 0}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
-.round{width:62px;height:62px;border-radius:50%;background:#30415d;color:white;font-size:23px}
-.round.blue{background:#2563eb}
-.round.red{background:#dc3545}
-.video-box{height:220px;border-radius:18px;background:#080e19;border:1px solid #2a3954;display:grid;place-items:center;margin:14px 0;color:#9eacc3;text-align:center;padding:20px}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px 8px calc(10px + env(safe-area-inset-bottom));background:#162238;border-top:1px solid #2a3954}
-nav button{background:transparent;color:#91a0b8;padding:9px 2px;border-radius:12px;font-size:12px}
-nav button.active{background:#263b5d;color:#93c5fd}
-nav .symbol{display:block;font-size:21px;margin-bottom:5px}
-#status{font-size:13px;color:#9eacc3;line-height:1.5;margin-top:14px}
-@media(min-width:600px){body{padding:20px 0}.app{border:1px solid #2a3954;border-radius:22px;overflow:hidden;min-height:calc(100dvh - 40px)}nav{bottom:20px;border-radius:0 0 22px 22px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AFTOR.UZ — YouTube kanal boshqaruvi, musiqa va mualliflik huquqlari xizmatlari.">
+  <title>AFTOR.UZ — Media Services</title>
+
+  <style>
+    :root {
+      --yellow: #ffd21f;
+      --black: #111111;
+      --dark: #1b1b1b;
+      --white: #ffffff;
+      --gray: #b9b9b9;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, textarea, select { font: inherit; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    .ad {
+      background: #252525;
+      border-bottom: 1px solid #444;
+      padding: 14px 50px;
+      text-align: center;
+      min-height: 55px;
+    }
+
+    .ad strong { color: var(--yellow); }
+
+    .ad button {
+      background: #333;
+      border: 1px solid #555;
+      color: white;
+      border-radius: 5px;
+      padding: 4px 10px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #111111f5;
+      border-bottom: 1px solid #333;
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    .logo span { color: var(--yellow); }
+
+    .links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .links a:hover { color: var(--yellow); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .languages button {
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .languages button.active {
+      background: var(--yellow);
+      color: #111;
+    }
+
+    .google {
+      background: white;
+      color: #222;
+      border: 0;
+      padding: 10px 12px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu {
+      display: none;
+      background: #222;
+      color: white;
+      border: 1px solid #555;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .hero {
+      padding: 75px 0;
+      background:
+        radial-gradient(ellipse at 80% 20%, #ffd21f22, transparent 45%),
+        #151515;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 65px);
+      line-height: 1.05;
+      margin: 20px 0;
+    }
+
+    h1 span { color: var(--yellow); }
+
+    .description {
+      color: #c2c2c2;
+      line-height: 1.8;
+      max-width: 580px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 7px;
+      background: var(--yellow);
+      color: #111;
+      font-weight: bold;
+      border: 0;
+      cursor: pointer;
+      margin: 10px 8px 0 0;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid #555;
+    }
+
+    .panel {
+      background: linear-gradient(145deg, #292929, #181818);
+      border: 1px solid #444;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .panel h2 { font-size: 17px; }
+
+    .panel-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #383838;
+    }
+
+    .panel-item strong { color: var(--yellow); }
+
+    .panel-item p {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    .platforms {
+      padding: 30px 0;
+      background: #171717;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      overflow: hidden;
+    }
+
+    .platform-label {
+      text-align: center;
+      color: #aaa;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .platform-window {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .platform-track {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: move 24s linear infinite;
+    }
+
+    .platform-track:hover { animation-play-state: paused; }
+
+    .platform {
+      min-width: 150px;
+      padding: 16px;
+      border: 1px solid #3b3b3b;
+      background: #222;
+      border-radius: 9px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .platform span {
+      color: var(--yellow);
+      margin-right: 6px;
+    }
+
+    @keyframes move {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    section { padding: 70px 0; }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      margin: 10px 0;
+    }
+
+    .section-description {
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .yellow-label {
+      color: var(--yellow);
+      font-weight: bold;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service {
+      padding: 24px;
+      background: #1b1b1b;
+      border: 1px solid #373737;
+      border-radius: 12px;
+    }
+
+    .service .symbol {
+      font-size: 28px;
+      color: var(--yellow);
+    }
+
+    .service h3 { font-size: 18px; }
+
+    .service p {
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .steps {
+      background: #171717;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .step {
+      padding: 22px;
+      background: #202020;
+      border-left: 3px solid var(--yellow);
+    }
+
+    .step small { color: var(--yellow); font-weight: bold; }
+
+    .step p {
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 25px;
+    }
+
+    .contact-info, .contact-form {
+      background: #1b1b1b;
+      border: 1px solid #373737;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .contact-info p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444;
+      background: #111;
+      color: white;
+      border-radius: 7px;
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .form-note {
+      grid-column: 1 / -1;
+      color: #999;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid #333;
+      padding: 30px 0;
+      background: #0b0b0b;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    footer p, .footer-links {
+      color: #999;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .disclaimer {
+      color: #777;
+      font-size: 11px;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+
+    #notice {
+      display: none;
+      padding: 12px;
+      color: var(--yellow);
+      background: #282313;
+      border: 1px solid #66571a;
+      border-radius: 7px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .links { gap: 10px; }
+      .links a { font-size: 11px; }
+      .hero-grid { gap: 25px; }
+      .services { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      nav { flex-wrap: wrap; padding: 12px 0; }
+      .menu { display: block; }
+      .links {
+        display: none;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .links.open { display: flex; }
+      .links a { padding: 12px; border-top: 1px solid #333; }
+      .logo { font-size: 24px; }
+      .google { font-size: 11px; padding: 9px; }
+      .hero { padding: 45px 0; }
+      .hero-grid, .contact-grid { grid-template-columns: 1fr; }
+      .services, .step-grid { grid-template-columns: 1fr; }
+      section { padding: 50px 0; }
+      .contact-form { grid-template-columns: 1fr; }
+      .field.full, .form-note { grid-column: auto; }
+      .ad { padding: 12px 38px 12px 12px; }
+      .ad button { margin-left: 3px; }
+    }
+  </style>
 </head>
+
 <body>
-<div class="app">
-<header>
-  <div class="brand">Tanishamiz</div>
-  <div class="subtitle">Suhbat uchun qulay va xavfsiz joy</div>
-</header>
 
-<main>
-<section class="page active" id="auth">
-  <div class="big-icon">💬</div>
-  <h2 id="authTitle">Xush kelibsiz!</h2>
-  <p class="desc">Davom etish uchun nik va parolingizni kiriting.</p>
-  <input class="field" id="nickname" placeholder="Nik (foydalanuvchi nomi)" maxlength="24" autocomplete="username">
-  <input class="field" id="password" type="password" placeholder="Parol" autocomplete="current-password">
-  <button class="primary" id="authButton">Kirish</button>
-  <button class="switch" id="switchAuth">Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish</button>
-  <p class="muted">Bu hozircha dizayn namunasi. Haqiqiy akkaunt yaratish keyingi bosqichda ulanadi.</p>
-</section>
+  <div class="ad">
+    <span id="adText">Ijodingizni yangi auditoriyaga olib chiqing — <strong>AFTOR.UZ</strong></span>
+    <button id="adPrev" aria-label="Oldingi reklama">‹</button>
+    <button id="adNext" aria-label="Keyingi reklama">›</button>
+  </div>
 
-<section class="page" id="chat">
-  <h2>Chat</h2>
-  <p class="desc">Xabarlar va do‘stlar bilan yozishmalar.</p>
-  <div class="card row">
-    <div class="avatar">🌐</div>
-    <div><b>Umumiy chat</b><div class="muted">Hamma uchun suhbat xonasi</div></div>
-    <span class="pill">Ochiq</span>
-  </div>
-  <div class="chatbox" id="messages">
-    <p class="muted" id="emptyChat">Chat tayyor. Hozircha bu dizayn namunasi.</p>
-  </div>
-  <div class="composer">
-    <input class="field" id="message" placeholder="Xabar yozing..." maxlength="1000">
-    <button id="send">➤</button>
-  </div>
-  <p class="muted">Xabarlar hozircha faqat shu qurilmada ko‘rinadi.</p>
-</section>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#home">AFTOR<span>.UZ</span></a>
 
-<section class="page" id="voice">
-  <h2>Ovozli suhbat</h2>
-  <p class="desc">Ovoz orqali suhbatlashish uchun alohida bo‘lim.</p>
-  <div class="card" style="text-align:center;padding:28px 18px">
-    <div class="big-icon">🎙️</div>
-    <h3>Ovozli xona</h3>
-    <p class="muted">Mikrofon boshqaruvi va suhbatga ulanish shu yerda bo‘ladi.</p>
-    <div class="actions">
-      <button class="round blue" id="micButton" aria-label="Mikrofonni yoqish">🎤</button>
+        <div class="links" id="navLinks">
+          <a href="#home" data-uz="Bosh sahifa" data-en="Home" data-ru="Главная">Bosh sahifa</a>
+          <a href="#services" data-uz="Xizmatlar" data-en="Services" data-ru="Услуги">Xizmatlar</a>
+          <a href="#process" data-uz="Ish tartibi" data-en="How it works" data-ru="Как работаем">Ish tartibi</a>
+          <a href="#contact" data-uz="Aloqa" data-en="Contact" data-ru="Контакты">Aloqa</a>
+        </div>
+
+        <div class="nav-right">
+          <div class="languages">
+            <button class="active" data-lang="uz">UZ</button>
+            <button data-lang="en">EN</button>
+            <button data-lang="ru">RU</button>
+          </div>
+          <button class="google" id="googleBtn">G&nbsp; Google orqali kirish</button>
+          <button class="menu" id="menuBtn" aria-label="Menyu">☰</button>
+        </div>
+      </nav>
     </div>
-    <p id="voiceStatus" class="muted">Ovozli suhbat hali ulanmagan.</p>
-  </div>
-</section>
+  </header>
 
-<section class="page" id="video">
-  <h2>Video qo‘ng‘iroq</h2>
-  <p class="desc">Kamera orqali yuzma-yuz suhbat.</p>
-  <div class="video-box" id="videoBox">📹<br>Kamera oynasi</div>
-  <video id="localVideo" autoplay muted playsinline style="display:none;width:100%;border-radius:16px"></video>
-  <div class="actions">
-    <button class="round blue" id="cameraButton" aria-label="Kamerani yoqish">📷</button>
-    <button class="round" id="videoMicButton" aria-label="Mikrofon">🎤</button>
-    <button class="round red" id="stopCamera" aria-label="Kamerani o‘chirish">✕</button>
-  </div>
-  <p id="videoStatus" class="muted">Kamera hali yoqilmagan.</p>
-  <p class="muted">Boshqa odam bilan haqiqiy videoaloqa keyingi bosqichda ulanadi.</p>
-</section>
-</main>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow" data-uz="IJODKORLAR UCHUN MEDIA XIZMATLARI" data-en="MEDIA SERVICES FOR CREATORS" data-ru="МЕДИАУСЛУГИ ДЛЯ АВТОРОВ">IJODKORLAR UCHUN MEDIA XIZMATLARI</div>
 
-<nav>
-  <button class="active" data-page="chat"><span class="symbol">💬</span>Chat</button>
-  <button data-page="voice"><span class="symbol">🎙️</span>Ovozli suhbat</button>
-  <button data-page="video"><span class="symbol">📹</span>Video qo‘ng‘iroq</button>
-</nav>
-</div>
+          <h1 data-uz="IJODINGIZ QADRI <span>BIZ BILAN!</span>" data-en="YOUR CREATIVITY <span>MATTERS!</span>" data-ru="ВАШЕ ТВОРЧЕСТВО <span>ЦЕННО!</span>">IJODINGIZ QADRI <span>BIZ BILAN!</span></h1>
 
-<script>
-const pages = ["auth","chat","voice","video"];
-function openPage(name){
-  pages.forEach(id=>document.getElementById(id).classList.toggle("active",id===name));
-  document.querySelectorAll("nav button").forEach(btn=>btn.classList.toggle("active",btn.dataset.page===name));
-}
-document.querySelectorAll("nav button").forEach(btn=>{
-  btn.onclick=()=>openPage(btn.dataset.page);
-});
+          <p class="description" data-uz="YouTube kanallarini boshqarish, musiqa loyihalari va mualliflik huquqlari masalalarida professional yondashuv." data-en="Professional guidance for YouTube channel management, music projects, and copyright matters." data-ru="Профессиональная помощь в управлении YouTube-каналами, музыкальными проектами и вопросами авторского права.">YouTube kanallarini boshqarish, musiqa loyihalari va mualliflik huquqlari masalalarida professional yondashuv.</p>
 
-let registering=false;
-document.getElementById("switchAuth").onclick=()=>{
-  registering=!registering;
-  document.getElementById("authTitle").textContent=registering?"Hisob yaratish":"Xush kelibsiz!";
-  document.getElementById("authButton").textContent=registering?"Ro‘yxatdan o‘tish":"Kirish";
-  document.getElementById("switchAuth").textContent=registering?"Hisobingiz bormi? Kirish":"Hisobingiz yo‘qmi? Ro‘yxatdan o‘tish";
-  document.getElementById("password").autocomplete=registering?"new-password":"current-password";
-};
-document.getElementById("authButton").onclick=()=>{
-  alert("Bu faqat dizayn namunasi. Haqiqiy nik va parol tizimini keyingi bosqichda ulaymiz.");
-};
+          <a class="button" href="#contact" data-uz="Hamkorlikni boshlash ↗" data-en="Start a conversation ↗" data-ru="Начать сотрудничество ↗">Hamkorlikni boshlash ↗</a>
+          <a class="button secondary" href="#services" data-uz="Xizmatlarni ko‘rish" data-en="Explore services" data-ru="Посмотреть услуги">Xizmatlarni ko‘rish</a>
 
-const messages=document.getElementById("messages");
-function sendMessage(){
-  const input=document.getElementById("message");
-  const value=input.value.trim();
-  if(!value)return;
-  const empty=document.getElementById("emptyChat");
-  if(empty)empty.remove();
-  const bubble=document.createElement("div");
-  bubble.className="bubble mine";
-  bubble.textContent=value;
-  messages.appendChild(bubble);
-  messages.scrollTop=messages.scrollHeight;
-  input.value="";
-}
-document.getElementById("send").onclick=sendMessage;
-document.getElementById("message").addEventListener("keydown",e=>{if(e.key==="Enter")sendMessage();});
+          <p style="font-size:11px;color:#888;line-height:1.7" data-uz="Har bir loyiha alohida ko‘rib chiqiladi. Natija va huquqiy jarayonlar kafolatlanmaydi." data-en="Every project is reviewed individually. Outcomes and legal processes are not guaranteed." data-ru="Каждый проект рассматривается отдельно. Результаты и юридические процедуры не гарантируются.">Har bir loyiha alohida ko‘rib chiqiladi. Natija va huquqiy jarayonlar kafolatlanmaydi.</p>
+        </div>
 
-let stream=null;
-async function startCamera(){
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-    const video=document.getElementById("localVideo");
-    video.srcObject=stream;
-    video.style.display="block";
-    document.getElementById("videoBox").style.display="none";
-    document.getElementById("videoStatus").textContent="Kamera va mikrofon yoqildi.";
-  }catch(e){
-    document.getElementById("videoStatus").textContent="Kamera/mikrofon ruxsatini tekshiring.";
-  }
-}
-document.getElementById("cameraButton").onclick=startCamera;
-document.getElementById("stopCamera").onclick=()=>{
-  if(stream)stream.getTracks().forEach(track=>track.stop());
-  stream=null;
-  document.getElementById("localVideo").style.display="none";
-  document.getElementById("videoBox").style.display="grid";
-  document.getElementById("videoStatus").textContent="Kamera o‘chirildi.";
-};
-document.getElementById("micButton").onclick=async()=>{
-  try{
-    if(!stream)stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
-    document.getElementById("voiceStatus").textContent="Mikrofon boshqarildi. Haqiqiy suhbat serveri hali ulanmagan.";
-  }catch(e){
-    document.getElementById("voiceStatus").textContent="Mikrofonga ruxsat berilmadi.";
-  }
-};
-document.getElementById("videoMicButton").onclick=()=>{
-  if(!stream){document.getElementById("videoStatus").textContent="Avval kamerani yoqing.";return;}
-  stream.getAudioTracks().forEach(track=>track.enabled=!track.enabled);
-  document.getElementById("videoStatus").textContent="Mikrofon holati o‘zgartirildi.";
-};
-  
-(async () => {
-  const { Room, RoomEvent } = await import(
-    "https://esm.sh/livekit-client@2"
-  );
+        <div class="panel">
+          <h2 data-uz="IJODKORLAR UCHUN YECHIMLAR" data-en="SOLUTIONS FOR CREATORS" data-ru="РЕШЕНИЯ ДЛЯ АВТОРОВ">IJODKORLAR UCHUN YECHIMLAR</h2>
 
-  const response = await fetch("/livekit-token", {
-    method: "POST"
-  });
+          <div class="panel-item">
+            <strong>▶ YouTube</strong>
+            <p data-uz="Kanal boshqaruvi va rivojlantirish" data-en="Channel management and development" data-ru="Управление и развитие канала">Kanal boshqaruvi va rivojlantirish</p>
+          </div>
 
-  if (!response.ok) {
-    document.getElementById("voiceStatus").textContent =
-      "Serverga ulanishda xato.";
-    return;
-  }
+          <div class="panel-item">
+            <strong>♫ Music & Rights</strong>
+            <p data-uz="Musiqa va mualliflik huquqlari bo‘yicha yordam" data-en="Music and copyright guidance" data-ru="Помощь по музыке и авторским правам">Musiqa va mualliflik huquqlari bo‘yicha yordam</p>
+          </div>
 
-  const data = await response.json();
-  const room = new Room();
+          <div class="panel-item">
+            <strong>↗ Channel Strategy</strong>
+            <p data-uz="Kontent rejasi va auditoriyani rivojlantirish" data-en="Content planning and audience growth" data-ru="Планирование контента и развитие аудитории">Kontent rejasi va auditoriyani rivojlantirish</p>
+          </div>
 
-  await room.connect(data.url, data.token);
+          <p style="color:#aaa;font-size:11px;line-height:1.7" data-uz="Faqat tegishli huquq va ruxsatlar mavjud bo‘lgan hollarda xizmat ko‘rsatiladi." data-en="Services are provided only where the relevant rights and permissions exist." data-ru="Услуги предоставляются только при наличии необходимых прав и разрешений.">Faqat tegishli huquq va ruxsatlar mavjud bo‘lgan hollarda xizmat ko‘rsatiladi.</p>
+        </div>
+      </div>
+    </section>
 
-  const messages = document.getElementById("messages");
-  const input = document.getElementById("message");
-  const send = document.getElementById("send");
+    <div class="platforms">
+      <div class="container">
+        <div class="platform-label" data-uz="MASHHUR KONTENT PLATFORMALARI" data-en="POPULAR CONTENT PLATFORMS" data-ru="ПОПУЛЯРНЫЕ КОНТЕНТ-ПЛАТФОРМЫ">MASHHUR KONTENT PLATFORMALARI</div>
 
-  messages.innerHTML = "";
+        <div class="platform-window">
+          <div class="platform-track">
+            <div class="platform"><span>▶</span>YouTube</div>
+            <div class="platform"><span>♫</span>YouTube Music</div>
+            <div class="platform"><span>●</span>Spotify</div>
+            <div class="platform"><span>♪</span>Apple Music</div>
+            <div class="platform"><span>Я</span>Yandex Music</div>
+            <div class="platform"><span>◉</span>Deezer</div>
+            <div class="platform"><span>♪</span>TikTok</div>
+            <div class="platform"><span>◎</span>Instagram</div>
 
-  room.on(RoomEvent.DataReceived, (payload) => {
-    const msg = JSON.parse(new TextDecoder().decode(payload));
-    const line = document.createElement("p");
-    line.textContent = msg;
-    messages.appendChild(line);
-  });
+            <div class="platform"><span>▶</span>YouTube</div>
+            <div class="platform"><span>♫</span>YouTube Music</div>
+            <div class="platform"><span>●</span>Spotify</div>
+            <div class="platform"><span>♪</span>Apple Music</div>
+            <div class="platform"><span>Я</span>Yandex Music</div>
+            <div class="platform"><span>◉</span>Deezer</div>
+            <div class="platform"><span>♪</span>TikTok</div>
+            <div class="platform"><span>◎</span>Instagram</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  send.onclick = async () => {
-    const text = input.value.trim();
-    if (!text) return;
+    <section id="services">
+      <div class="container">
+        <div class="yellow-label" data-uz="BIZNING XIZMATLAR" data-en="OUR SERVICES" data-ru="НАШИ УСЛУГИ">BIZNING XIZMATLAR</div>
+        <h2 class="section-title" data-uz="Ijodingiz uchun yechimlar" data-en="Solutions for your creativity" data-ru="Решения для вашего творчества">Ijodingiz uchun yechimlar</h2>
+        <p class="section-description" data-uz="Avval loyihangizni o‘rganamiz, keyin mos xizmat va keyingi qadamlarni taklif qilamiz." data-en="We review your project first, then suggest suitable services and next steps." data-ru="Сначала изучаем ваш проект, затем предлагаем подходящие услуги и дальнейшие шаги.">Avval loyihangizni o‘rganamiz, keyin mos xizmat va keyingi qadamlarni taklif qilamiz.</p>
 
-    await room.localParticipant.publishData(
-      new TextEncoder().encode(JSON.stringify(text)),
-      { reliable: true }
-    );
+        <div class="services">
+          <article class="service">
+            <div class="symbol">▶</div>
+            <h3 data-uz="YouTube kanal boshqaruvi" data-en="YouTube channel management" data-ru="Управление YouTube-каналом">YouTube kanal boshqaruvi</h3>
+            <p data-uz="Kanal sozlamalari, kontentni tashkil qilish, nashr rejalari va rivojlantirish bo‘yicha maslahat." data-en="Guidance on channel settings, content organization, publishing, and development." data-ru="Рекомендации по настройкам канала, организации контента, публикациям и развитию.">Kanal sozlamalari, kontentni tashkil qilish, nashr rejalari va rivojlantirish bo‘yicha maslahat.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
 
-    const line = document.createElement("p");
-    line.textContent = "Siz: " + text;
-    messages.appendChild(line);
-    input.value = "";
-  };
-})().catch(error => console.error("Chat xatosi:", error));
+          <article class="service">
+            <div class="symbol">©</div>
+            <h3 data-uz="Mualliflik da’volari bo‘yicha yordam" data-en="Copyright claim support" data-ru="Помощь с авторскими претензиями">Mualliflik da’volari bo‘yicha yordam</h3>
+            <p data-uz="Da’vo yoki strike holatini ko‘rib chiqish, hujjatlar va qonuniy apellyatsiya bo‘yicha ko‘mak." data-en="Review claims or strikes and assist with documentation and legitimate appeals." data-ru="Разбор претензий или страйков, документов и законных апелляций.">Da’vo yoki strike holatini ko‘rib chiqish, hujjatlar va qonuniy apellyatsiya bo‘yicha ko‘mak.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
 
-</script>
+          <article class="service">
+            <div class="symbol">♫</div>
+            <h3 data-uz="Musiqa huquqlarini boshqarish" data-en="Music rights management" data-ru="Управление музыкальными правами">Musiqa huquqlarini boshqarish</h3>
+            <p data-uz="Musiqa relizlari, foydalanish ruxsatlari va huquqiy jarayonlar bo‘yicha maslahat." data-en="Guidance on music releases, usage permissions, and rights workflows." data-ru="Консультации по музыкальным релизам, разрешениям и правам.">Musiqa relizlari, foydalanish ruxsatlari va huquqiy jarayonlar bo‘yicha maslahat.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
+
+          <article class="service">
+            <div class="symbol">↗</div>
+            <h3 data-uz="Kanalni rivojlantirish" data-en="Channel growth strategy" data-ru="Стратегия развития канала">Kanalni rivojlantirish</h3>
+            <p data-uz="Kanal tahlili, kontent rejasi va auditoriyani tabiiy rivojlantirish bo‘yicha tavsiyalar." data-en="Channel audits, content plans, and recommendations for organic audience growth." data-ru="Анализ канала, контент-план и рекомендации по органическому росту аудитории.">Kanal tahlili, kontent rejasi va auditoriyani tabiiy rivojlantirish bo‘yicha tavsiyalar.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
+
+          <article class="service">
+            <div class="symbol">◎</div>
+            <h3 data-uz="Hamkorlik bo‘yicha maslahat" data-en="Partner channel consultation" data-ru="Консультации по партнёрству">Hamkorlik bo‘yicha maslahat</h3>
+            <p data-uz="Hamkorlik modellari, talablar va kanalni professional boshqaruvga tayyorlash bo‘yicha ma’lumot." data-en="Guidance on partnership models, requirements, and professional channel management." data-ru="Информация о моделях партнёрства, требованиях и профессиональном управлении каналом.">Hamkorlik modellari, talablar va kanalni professional boshqaruvga tayyorlash bo‘yicha ma’lumot.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
+
+          <article class="service">
+            <div class="symbol">✦</div>
+            <h3 data-uz="Kontent va loyiha maslahati" data-en="Content and project consulting" data-ru="Консультации по контенту и проектам">Kontent va loyiha maslahati</h3>
+            <p data-uz="Ijodkorlar, prodyuserlar va huquq egalari uchun individual maslahat." data-en="Individual guidance for creators, producers, and rights holders." data-ru="Индивидуальные консультации для авторов, продюсеров и правообладателей.">Ijodkorlar, prodyuserlar va huquq egalari uchun individual maslahat.</p>
+            <a class="button secondary" href="#contact">↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps" id="process">
+      <div class="container">
+        <div class="yellow-label" data-uz="ISHLASH TARTIBI" data-en="HOW WE WORK" data-ru="КАК МЫ РАБОТАЕМ">ISHLASH TARTIBI</div>
+        <h2 class="section-title" data-uz="Oddiy va tushunarli" data-en="Clear and straightforward" data-ru="Просто и понятно">Oddiy va tushunarli</h2>
+
+        <div class="step-grid">
+          <article class="step">
+            <small>01 — SO‘ROV</small>
+            <h3 data-uz="Loyihangizni tanishtiring" data-en="Tell us about your project" data-ru="Расскажите о проекте">Loyihangizni tanishtiring</h3>
+            <p data-uz="Kanal yoki musiqa loyihangiz haqida qisqacha yozing." data-en="Briefly describe your channel or music project." data-ru="Кратко опишите ваш канал или музыкальный проект.">Kanal yoki musiqa loyihangiz haqida qisqacha yozing.</p>
+          </article>
+
+          <article class="step">
+            <small>02 — TAHLIL</small>
+            <h3 data-uz="Vaziyatni o‘rganamiz" data-en="We assess the situation" data-ru="Изучим ситуацию">Vaziyatni o‘rganamiz</h3>
+            <p data-uz="Huquqlar, maqsadlar va mavjud variantlarni ko‘rib chiqamiz." data-en="We review rights, goals, and available options." data-ru="Изучим права, цели и доступные варианты.">Huquqlar, maqsadlar va mavjud variantlarni ko‘rib chiqamiz.</p>
+          </article>
+
+          <article class="step">
+            <small>03 — REJA</small>
+            <h3 data-uz="Keyingi qadamlarni kelishamiz" data-en="Agree on next steps" data-ru="Согласуем дальнейшие шаги">Keyingi qadamlarni kelishamiz</h3>
+            <p data-uz="Xizmatlar, muddatlar va narx alohida kelishiladi." data-en="Services, timelines, and pricing are agreed separately." data-ru="Услуги, сроки и стоимость согласовываются отдельно.">Xizmatlar, muddatlar va narx alohida kelishiladi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="yellow-label" data-uz="ALOQA" data-en="CONTACT" data-ru="КОНТАКТЫ">ALOQA</div>
+        <h2 class="section-title" data-uz="Biz bilan bog‘laning" data-en="Get in touch" data-ru="Свяжитесь с нами">Biz bilan bog‘laning</h2>
+        <p class="section-description" data-uz="Loyihangiz haqida ma’lumot qoldiring." data-en="Tell us about your project." data-ru="Расскажите о вашем проекте.">Loyihangiz haqida ma’lumot qoldiring.</p>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>AFTOR.UZ</h3>
+            <p data-uz="YouTube kanali, musiqa relizi yoki mualliflik huquqlari bo‘yicha savolingizni yozing." data-en="Contact us about a YouTube channel, music release, or copyright question." data-ru="Напишите нам о YouTube-канале, музыкальном релизе или авторских правах.">YouTube kanali, musiqa relizi yoki mualliflik huquqlari bo‘yicha savolingizni yozing.</p>
+            <p><strong style="color:#ffd21f">E-mail:</strong> <span data-uz="Hozircha sozlanmagan" data-en="Not configured yet" data-ru="Пока не настроен">Hozircha sozlanmagan</span></p>
+            <p style="font-size:11px">Parol va boshqa maxfiy ma’lumotlarni yubormang.</p>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <div class="field">
+              <label for="name" data-uz="Ismingiz" data-en="Your name" data-ru="Ваше имя">Ismingiz</label>
+              <input id="name" name="name" required>
+            </div>
+
+            <div class="field">
+              <label for="email" data-uz="Elektron pochtangiz" data-en="Your email" data-ru="Ваш email">Elektron pochtangiz</label>
+              <input id="email" name="email" type="email" required>
+            </div>
+
+            <div class="field full">
+              <label for="service" data-uz="Qaysi xizmat kerak?" data-en="Which service do you need?" data-ru="Какая услуга нужна?">Qaysi xizmat kerak?</label>
+              <select id="service" name="service">
+                <option>YouTube kanal boshqaruvi</option>
+                <option>Mualliflik da’vosi bo‘yicha yordam</option>
+                <option>Musiqa huquqlari</option>
+                <option>Kanalni rivojlantirish</option>
+                <option>Boshqa savol</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="message" data-uz="Loyihangiz haqida" data-en="About your project" data-ru="О вашем проекте">Loyihangiz haqida</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <div class="field full">
+              <button class="button" type="submit" data-uz="So‘rovni tekshirish ↗" data-en="Review inquiry ↗" data-ru="Проверить запрос ↗">So‘rovni tekshirish ↗</button>
+            </div>
+
+            <div id="notice" class="field full"></div>
+
+            <p class="form-note" data-uz="Diqqat: bu hozircha demo forma. Xabar yuborilishi uchun haqiqiy server yoki xavfsiz e-mail xizmati ulanishi kerak." data-en="Note: this is currently a demo form. A real server or secure email service must be connected to send messages." data-ru="Внимание: пока это демонстрационная форма. Для отправки сообщений необходимо подключить сервер или безопасную почту.">Diqqat: bu hozircha demo forma. Xabar yuborilishi uchun haqiqiy server yoki xavfsiz e-mail xizmati ulanishi kerak.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div>
+          <a class="logo" href="#home">AFTOR<span>.UZ</span></a>
+          <p>© <span id="year"></span> AFTOR.UZ</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#home" data-uz="Bosh sahifa" data-en="Home" data-ru="Главная">Bosh sahifa</a>
+          <a href="#services" data-uz="Xizmatlar" data-en="Services" data-ru="Услуги">Xizmatlar</a>
+          <a href="#contact" data-uz="Aloqa" data-en="Contact" data-ru="Контакты">Aloqa</a>
+        </div>
+      </div>
+
+      <p class="disclaimer" data-uz="AFTOR.UZ hozircha mustaqil sayt loyihasidir. YouTube, Spotify, Apple Music va boshqa brendlar tegishli egalariga tegishli. Ushbu sayt rasmiy hamkorlik mavjudligini anglatmaydi. Strike olib tashlash, monetizatsiya yoki MCN maqomi kafolatlanmaydi." data-en="AFTOR.UZ is currently an independent website concept. YouTube, Spotify, Apple Music, and other brands belong to their respective owners. This site does not imply official partnership. Strike removal, monetization, or MCN status is not guaranteed." data-ru="AFTOR.UZ пока является концепцией независимого сайта. YouTube, Spotify, Apple Music и другие бренды принадлежат соответствующим владельцам. Сайт не означает официального партнёрства. Удаление страйков, монетизация и статус MCN не гарантируются.">AFTOR.UZ hozircha mustaqil sayt loyihasidir. YouTube, Spotify, Apple Music va boshqa brendlar tegishli egalariga tegishli. Ushbu sayt rasmiy hamkorlik mavjudligini anglatmaydi. Strike olib tashlash, monetizatsiya yoki MCN maqomi kafolatlanmaydi.</p>
+    </div>
+  </footer>
+
+  <script>
+    const ads = [
+      'Ijodingizni yangi auditoriyaga olib chiqing — <strong>AFTOR.UZ</strong>',
+      'YouTube kanalingizni <strong>professional boshqaring</strong>.',
+      'Mualliflik huquqlari bo‘yicha savolingiz bormi? <strong>Bizga yozing.</strong>'
+    ];
+
+    let adIndex = 0;
+
+    function rotateAd(direction = 1) {
+      adIndex = (adIndex + direction + ads.length) % ads.length;
+      document.getElementById('adText').innerHTML = ads[adIndex];
+    }
+
+    document.getElementById('adNext').addEventListener('click', () => rotateAd(1));
+    document.getElementById('adPrev').addEventListener('click', () => rotateAd(-1));
+
+    setInterval(() => rotateAd(1), 6000);
+
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    document.getElementById('googleBtn').addEventListener('click', () => {
+      alert('Google orqali kirish hali sozlanmagan. Buning uchun Google OAuth ulanishi kerak.');
+    });
+
+    document.querySelectorAll('[data-lang]').forEach(button => {
+      button.addEventListener('click', () => {
+        const language = button.dataset.lang;
+
+        document.querySelectorAll('[data-lang]').forEach(item => {
+          item.classList.toggle('active', item === button);
+        });
+
+        document.querySelectorAll('[data-uz]').forEach(element => {
+          const translation = element.dataset[language];
+          if (translation) element.innerHTML = translation;
+        });
+
+        document.documentElement.lang = language;
+      });
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+
+      const notice = document.getElementById('notice');
+      notice.style.display = 'block';
+      notice.textContent = 'Forma ko‘rinishi tayyor, lekin xabar serverga yuborilmadi. Keyingi bosqichda xavfsiz yuborish tizimini ulash kerak.';
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
