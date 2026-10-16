@@ -5,346 +5,554 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101010">
-<meta name="description" content="AFTOR — media xizmatlari, YouTube boshqaruvi va musiqa huquqlari.">
+<meta name="description" content="AFTOR — YouTube, musiqa va media xizmatlari.">
 <title>AFTOR — Media Services</title>
+
 <style>
-:root{--bg:#101010;--card:#191919;--yellow:#ffd21f;--white:#fff;--muted:#aaa;--border:#333}
+:root{--bg:#101010;--card:#1b1b1b;--yellow:#ffd21f;--white:#fff;--muted:#aaa;--border:#353535}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}
 a{color:inherit;text-decoration:none}
 button,input,textarea,select{font:inherit}
-button,a{ -webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
 .container{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:5;background:#101010f5;border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
-nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:30px;font-weight:900;letter-spacing:-1.5px}
+header{position:sticky;top:0;z-index:10;background:#101010f5;border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:29px;font-weight:900;letter-spacing:-1.5px;white-space:nowrap}
 .logo span{color:var(--yellow)}
-.links{display:flex;align-items:center;gap:24px;font-size:14px;color:#ddd}
-.links a:hover{color:var(--yellow)}
-.nav-actions{display:flex;gap:9px;align-items:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 18px;border-radius:8px;border:1px solid transparent;background:var(--yellow);color:#111;font-weight:700;cursor:pointer}
-.btn:hover{filter:brightness(.94);transform:translateY(-1px)}
-.btn-outline{background:transparent;color:#fff;border-color:#555}
-.btn-small{padding:10px 13px;font-size:13px}
-.menu{display:none;background:#222;color:white;border:1px solid #444;padding:9px 12px;border-radius:7px}
-.hero{padding:85px 0 75px;background:radial-gradient(ellipse at 80% 20%,#ffd21f20,transparent 45%),linear-gradient(135deg,#151515,#101010)}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}
-.eyebrow,.label{font-size:12px;letter-spacing:2px;color:var(--yellow);font-weight:800}
-h1{font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-2px;margin:20px 0}
+.links{display:flex;align-items:center;gap:20px;font-size:13px;color:#ddd}
+.links a:hover,.footer-links a:hover{color:var(--yellow)}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.languages{display:flex;gap:4px}
+.lang{padding:8px 9px;border:1px solid #444;border-radius:6px;background:#222;color:#fff;font-size:11px;font-weight:bold}
+.lang.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:13px 17px;border:1px solid transparent;border-radius:8px;background:var(--yellow);color:#111;font-weight:bold;font-size:13px;cursor:pointer}
+.btn:hover{filter:brightness(.94)}
+.btn-outline{background:transparent;color:white;border-color:#555}
+.btn-small{padding:10px 12px;font-size:12px}
+.menu{display:none;padding:8px 11px;background:#222;border:1px solid #444;color:white;border-radius:7px}
+.hero{padding:78px 0;background:radial-gradient(ellipse at 80% 20%,#ffd21f20,transparent 45%),#141414}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.eyebrow,.label{font-size:11px;letter-spacing:2px;color:var(--yellow);font-weight:800}
+h1{font-size:clamp(42px,6vw,70px);line-height:1.04;letter-spacing:-2px;margin:20px 0}
 h1 span{color:var(--yellow)}
-.lead{color:#c1c1c1;line-height:1.9;max-width:590px;font-size:16px}
-.hero-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
-.small-note{font-size:11px;color:#888;line-height:1.8;margin-top:22px}
-.hero-card{background:linear-gradient(145deg,#242424,#171717);border:1px solid #383838;border-radius:18px;padding:28px}
-.hero-card h2{font-size:19px;margin-top:0}
-.feature{display:flex;gap:14px;padding:17px 0;border-bottom:1px solid #333}
+.lead{max-width:600px;color:#c1c1c1;font-size:15px;line-height:1.9}
+.hero-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.small-note{font-size:11px;color:#888;line-height:1.8;margin-top:20px}
+.hero-card{padding:26px;background:linear-gradient(145deg,#292929,#181818);border:1px solid #414141;border-radius:16px}
+.hero-card h2{font-size:19px}
+.feature{display:flex;gap:13px;padding:16px 0;border-bottom:1px solid #383838}
 .feature:last-child{border-bottom:0}
-.feature-icon{display:grid;place-items:center;flex-shrink:0;width:43px;height:43px;border-radius:10px;background:#332b0b;color:var(--yellow);font-size:21px}
-.feature strong{font-size:15px}
-.feature p{font-size:13px;color:var(--muted);line-height:1.6;margin:7px 0 0}
-.platforms{padding:25px 0;border-block:1px solid #303030;background:#151515}
-.platform-title{text-align:center;color:#999;font-size:11px;font-weight:bold;letter-spacing:2px;margin-bottom:17px}
+.feature-icon{flex-shrink:0;display:grid;place-items:center;width:43px;height:43px;border-radius:10px;background:#332b0b;color:var(--yellow);font-size:21px}
+.feature p{font-size:13px;color:#aaa;line-height:1.7;margin-bottom:0}
+.platforms{padding:26px 0;background:#151515;border-block:1px solid #333}
+.platform-title{text-align:center;color:#999;font-size:11px;letter-spacing:2px;font-weight:bold;margin-bottom:18px}
 .platform-list{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.platform{border:1px solid #393939;background:#202020;padding:12px 16px;border-radius:8px;font-size:13px;font-weight:bold}
-section.content{padding:76px 0}
-.section-title{font-size:clamp(30px,4vw,44px);letter-spacing:-1px;margin:12px 0}
-.section-desc{color:var(--muted);line-height:1.8;max-width:650px;margin-bottom:30px}
+.platform{padding:13px 16px;background:#202020;border:1px solid #393939;border-radius:8px;font-size:13px;font-weight:bold}
+section.content{padding:72px 0}
+.section-title{font-size:clamp(30px,4vw,43px);letter-spacing:-1px;margin:12px 0}
+.section-desc{color:#aaa;line-height:1.8;max-width:660px;margin-bottom:30px}
 .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.service{padding:25px;background:var(--card);border:1px solid #333;border-radius:13px;transition:.2s}
+.service{padding:24px;background:var(--card);border:1px solid #353535;border-radius:12px;transition:.2s}
 .service:hover{border-color:#806c1c;transform:translateY(-3px)}
 .service-icon{font-size:28px;color:var(--yellow)}
-.service h3{font-size:17px}
+.service h3{font-size:17px;line-height:1.5}
 .service p{font-size:13px;color:#aaa;line-height:1.8}
-.service a{display:inline-block;margin-top:8px;color:var(--yellow);font-size:13px;font-weight:bold}
-.steps-section{background:#151515;border-block:1px solid #303030}
+.service a{display:inline-block;margin-top:8px;color:var(--yellow);font-size:12px;font-weight:bold}
+.steps-section{background:#151515;border-block:1px solid #333}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.step{padding:23px;background:#202020;border-left:3px solid var(--yellow)}
+.step{padding:22px;background:#202020;border-left:3px solid var(--yellow)}
 .step small{color:var(--yellow);font-weight:bold}
-.step p{color:#aaa;font-size:13px;line-height:1.8}
+.step p{font-size:13px;color:#aaa;line-height:1.8}
 .contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
-.contact-info,.contact-form{background:var(--card);border:1px solid #333;border-radius:13px;padding:25px}
-.contact-info p{color:#aaa;font-size:14px;line-height:1.9}
+.contact-info,.contact-form{padding:24px;background:var(--card);border:1px solid #353535;border-radius:12px}
+.contact-info p{font-size:14px;color:#aaa;line-height:1.9}
 .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{display:flex;flex-direction:column;gap:7px}
 .field.full{grid-column:1/-1}
 .field label{font-size:12px;color:#ccc}
-.field input,.field select,.field textarea,.auth-form input{width:100%;padding:13px;border:1px solid #414141;background:#101010;color:#fff;border-radius:8px;outline:none}
-.field input:focus,.field textarea:focus,.auth-form input:focus{border-color:var(--yellow)}
-.field textarea{min-height:120px;resize:vertical}
-.status{display:none;padding:12px;border-radius:8px;background:#24200f;color:var(--yellow);font-size:13px;line-height:1.6}
+.field input,.field select,.field textarea,.auth-form input{width:100%;padding:12px;border:1px solid #444;border-radius:7px;background:#101010;color:white;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus,.auth-form input:focus{border-color:var(--yellow)}
+.field textarea{min-height:115px;resize:vertical}
+.status{display:none;padding:12px;border-radius:7px;background:#282313;border:1px solid #66571a;color:var(--yellow);font-size:12px;line-height:1.7;overflow-wrap:anywhere}
 footer{padding:30px 0;background:#0b0b0b;border-top:1px solid #333}
-.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer p{color:#888;font-size:12px;line-height:1.8}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap;color:#aaa;font-size:13px}
-.modal{display:none;position:fixed;inset:0;z-index:20;background:#000c;padding:20px;align-items:center;justify-content:center;overflow:auto}
+.footer-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer p{font-size:12px;color:#888;line-height:1.8}
+.footer-links{display:flex;flex-wrap:wrap;gap:16px;color:#aaa;font-size:12px}
+.modal{display:none;position:fixed;inset:0;z-index:30;align-items:center;justify-content:center;overflow-y:auto;padding:18px;background:#000c}
 .modal.open{display:flex}
-.modal-box{width:min(440px,100%);background:#191919;border:1px solid #444;border-radius:16px;padding:27px;position:relative}
-.modal-box h2{margin-top:0}
-.close{position:absolute;right:15px;top:12px;background:transparent;color:#aaa;border:0;font-size:27px;cursor:pointer}
+.modal-box{position:relative;width:min(440px,100%);padding:28px;background:#191919;border:1px solid #444;border-radius:15px}
+.close{position:absolute;right:14px;top:10px;border:0;background:none;color:#aaa;font-size:28px}
+.modal-box h2{margin-top:22px}
+.modal-intro{font-size:13px;color:#aaa;line-height:1.7}
 .auth-form{display:grid;gap:13px}
-.auth-form label{font-size:12px;color:#ccc;display:grid;gap:7px}
-.auth-switch{color:#bbb;font-size:13px;text-align:center;line-height:1.8}
-.auth-switch button{background:none;border:0;color:var(--yellow);cursor:pointer}
-#authStatus{margin:0}
-@media(max-width:850px){
- .hero-grid{grid-template-columns:1fr;gap:30px}
- .services{grid-template-columns:repeat(2,1fr)}
- .links{gap:12px}
- .links a{font-size:12px}
+.auth-form label{display:grid;gap:7px;font-size:12px;color:#ccc}
+.auth-switch{text-align:center;font-size:12px;color:#aaa;line-height:1.8;margin-top:20px}
+.auth-switch button{border:0;background:none;color:var(--yellow);font-weight:bold}
+.auth-error{font-size:12px;color:#ffd21f;line-height:1.7}
+[hidden]{display:none!important}
+@media(max-width:900px){
+ .links{gap:11px}.links a{font-size:11px}
+ .hero-grid{gap:25px}.services{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:650px){
+@media(max-width:680px){
  nav{flex-wrap:wrap;padding:12px 0}
- .logo{font-size:26px}
+ .logo{font-size:25px}
+ .nav-actions{margin-left:auto;gap:5px}
+ .lang{padding:7px 6px}
+ .nav-actions .btn{padding:9px 8px;font-size:11px}
  .menu{display:block}
  .links{display:none;order:3;width:100%;flex-direction:column;align-items:stretch;gap:0}
  .links.open{display:flex}
- .links a{padding:13px 4px;border-top:1px solid #333;font-size:14px}
- .nav-actions{margin-left:auto}
- .nav-actions .btn{padding:9px 10px;font-size:12px}
- .hero{padding:55px 0}
- h1{letter-spacing:-1.5px}
- section.content{padding:55px 0}
- .services,.steps,.contact-grid{grid-template-columns:1fr}
+ .links a{padding:13px 4px;border-top:1px solid #333;font-size:13px}
+ .hero{padding:48px 0}
+ .hero-grid,.contact-grid{grid-template-columns:1fr}
+ h1{letter-spacing:-1.3px}
+ section.content{padding:52px 0}
+ .services,.steps{grid-template-columns:1fr}
  .contact-form{grid-template-columns:1fr}
  .field.full{grid-column:auto}
- .platform{padding:10px 12px;font-size:12px}
+ .platform{padding:10px;font-size:11px}
 }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
+
 <body>
 <header>
-  <div class="container">
-    <nav>
-      <a class="logo" href="#home">AF<span>TOR</span></a>
-      <div class="links" id="navLinks">
-        <a href="#home">Bosh sahifa</a>
-        <a href="#services">Xizmatlar</a>
-        <a href="#process">Ish tartibi</a>
-        <a href="#contact">Aloqa</a>
-      </div>
-      <div class="nav-actions">
-        <button class="btn btn-outline btn-small" id="loginBtn">Kirish</button>
-        <button class="btn btn-small" id="registerBtn">Ro‘yxatdan o‘tish</button>
-        <button class="menu" id="menuBtn" aria-label="Menyu">☰</button>
-      </div>
-    </nav>
-  </div>
+<div class="container">
+<nav>
+<a class="logo" href="#home">AF<span>TOR</span></a>
+<div class="links" id="navLinks">
+<a href="#home" data-i18n="navHome">Bosh sahifa</a>
+<a href="#services" data-i18n="navServices">Xizmatlar</a>
+<a href="#process" data-i18n="navProcess">Ish tartibi</a>
+<a href="#contact" data-i18n="navContact">Aloqa</a>
+</div>
+<div class="nav-actions">
+<div class="languages" aria-label="Language">
+<button class="lang active" type="button" data-language="uz">UZ</button>
+<button class="lang" type="button" data-language="en">EN</button>
+<button class="lang" type="button" data-language="ru">RU</button>
+</div>
+<button class="btn btn-outline btn-small" id="loginBtn" data-i18n="login">Kirish</button>
+<button class="btn btn-small" id="registerBtn" data-i18n="register">Ro‘yxatdan o‘tish</button>
+<button class="menu" id="menuBtn" aria-label="Menu">☰</button>
+</div>
+</nav>
+</div>
 </header>
 
 <main>
 <section class="hero" id="home">
-  <div class="container hero-grid">
-    <div>
-      <div class="eyebrow">MEDIA XIZMATLARI • IJODKORLAR UCHUN</div>
-      <h1>Ijodingizni<br>yangi <span>bosqichga</span><br>olib chiqing.</h1>
-      <p class="lead">YouTube kanal boshqaruvi, musiqa loyihalari va mualliflik huquqlari bo‘yicha professional media xizmatlari — barchasi bir joyda.</p>
-      <div class="hero-buttons">
-        <a class="btn" href="#services">Xizmatlarni ko‘rish ↗</a>
-        <a class="btn btn-outline" href="#contact">Biz bilan bog‘lanish</a>
-      </div>
-      <p class="small-note">Har bir loyiha alohida ko‘rib chiqiladi. Xizmat natijalari oldindan kafolatlanmaydi.</p>
-    </div>
-    <div class="hero-card">
-      <div class="label">AFTOR YECHIMLARI</div>
-      <h2>Ijodingiz uchun kerakli yordam</h2>
-      <div class="feature"><div class="feature-icon">▶</div><div><strong>YouTube xizmatlari</strong><p>Kanal boshqaruvi, kontent rejalari va rivojlantirish.</p></div></div>
-      <div class="feature"><div class="feature-icon">♫</div><div><strong>Musiqa va huquqlar</strong><p>Musiqa relizlari va huquqlarni boshqarish bo‘yicha yordam.</p></div></div>
-      <div class="feature"><div class="feature-icon">©</div><div><strong>Mualliflik da’volari</strong><p>Da’volar, hujjatlar va qonuniy apellyatsiya jarayonlari.</p></div></div>
-    </div>
-  </div>
+<div class="container hero-grid">
+<div>
+<div class="eyebrow" data-i18n="eyebrow">MEDIA XIZMATLARI • IJODKORLAR UCHUN</div>
+<h1 data-i18n-html="heroTitle">Ijodingizni<br>yangi <span>bosqichga</span><br>olib chiqing.</h1>
+<p class="lead" data-i18n="heroDesc">YouTube kanal boshqaruvi, musiqa loyihalari va mualliflik huquqlari bo‘yicha professional media xizmatlari — barchasi bir joyda.</p>
+<div class="hero-buttons">
+<a class="btn" href="#services" data-i18n="servicesButton">Xizmatlarni ko‘rish ↗</a>
+<a class="btn btn-outline" href="#contact" data-i18n="contactButton">Biz bilan bog‘lanish</a>
+</div>
+<p class="small-note" data-i18n="disclaimer">Har bir loyiha alohida ko‘rib chiqiladi. Natijalar oldindan kafolatlanmaydi.</p>
+</div>
+<div class="hero-card">
+<div class="label" data-i18n="solutions">AFTOR YECHIMLARI</div>
+<h2 data-i18n="solutionsTitle">Ijodingiz uchun kerakli yordam</h2>
+<div class="feature"><div class="feature-icon">▶</div><div><strong data-i18n="youtubeTitle">YouTube xizmatlari</strong><p data-i18n="youtubeDesc">Kanal boshqaruvi, kontent rejalari va rivojlantirish.</p></div></div>
+<div class="feature"><div class="feature-icon">♫</div><div><strong data-i18n="musicTitle">Musiqa va huquqlar</strong><p data-i18n="musicDesc">Musiqa relizlari va huquqlar bo‘yicha yordam.</p></div></div>
+<div class="feature"><div class="feature-icon">©</div><div><strong data-i18n="copyrightTitle">Mualliflik da’volari</strong><p data-i18n="copyrightDesc">Da’volar, hujjatlar va qonuniy apellyatsiya jarayonlari.</p></div></div>
+</div>
+</div>
 </section>
 
 <div class="platforms">
-  <div class="container">
-    <div class="platform-title">MASHHUR KONTENT PLATFORMALARI</div>
-    <div class="platform-list">
-      <div class="platform">▶ YouTube</div><div class="platform">♫ YouTube Music</div>
-      <div class="platform">● Spotify</div><div class="platform">♪ Apple Music</div>
-      <div class="platform">Я Yandex Music</div><div class="platform">◉ Deezer</div>
-      <div class="platform">♪ TikTok</div>
-    </div>
-  </div>
+<div class="container">
+<div class="platform-title" data-i18n="platforms">MASHHUR KONTENT PLATFORMALARI</div>
+<div class="platform-list">
+<div class="platform">▶ YouTube</div>
+<div class="platform">♫ YouTube Music</div>
+<div class="platform">● Spotify</div>
+<div class="platform">♪ Apple Music</div>
+<div class="platform">Я Yandex Music</div>
+<div class="platform">◉ Deezer</div>
+<div class="platform">♪ TikTok</div>
+</div>
+</div>
 </div>
 
 <section class="content" id="services">
-  <div class="container">
-    <div class="label">BIZNING XIZMATLAR</div>
-    <h2 class="section-title">Ijodingiz uchun yechimlar</h2>
-    <p class="section-desc">Loyihangizni o‘rganamiz va ehtiyojingizga mos xizmat hamda keyingi qadamlarni taklif qilamiz.</p>
-    <div class="services">
-      <article class="service"><div class="service-icon">▶</div><h3>YouTube kanal boshqaruvi</h3><p>Kanal sozlamalari, kontentni tashkil qilish, nashr rejalari va rivojlantirish bo‘yicha maslahat.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-      <article class="service"><div class="service-icon">©</div><h3>Mualliflik da’volari</h3><p>Da’volar yoki strike holatini ko‘rib chiqish, hujjatlar va qonuniy apellyatsiya bo‘yicha ko‘mak.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-      <article class="service"><div class="service-icon">♫</div><h3>Musiqa huquqlarini boshqarish</h3><p>Musiqa relizlari, foydalanish ruxsatlari va huquqiy jarayonlar bo‘yicha maslahat.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-      <article class="service"><div class="service-icon">↗</div><h3>Kanalni rivojlantirish</h3><p>Kanal tahlili, kontent rejasi va auditoriyani tabiiy rivojlantirish bo‘yicha tavsiyalar.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-      <article class="service"><div class="service-icon">◎</div><h3>Hamkorlik bo‘yicha maslahat</h3><p>Hamkorlik modellari, talablar va professional boshqaruvga tayyorgarlik haqida ma’lumot.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-      <article class="service"><div class="service-icon">✦</div><h3>Kontent va loyiha maslahati</h3><p>Ijodkorlar, prodyuserlar va huquq egalari uchun individual maslahat.</p><a href="#contact">Batafsil so‘rash ↗</a></article>
-    </div>
-  </div>
+<div class="container">
+<div class="label" data-i18n="serviceLabel">BIZNING XIZMATLAR</div>
+<h2 class="section-title" data-i18n="serviceTitle">Ijodingiz uchun yechimlar</h2>
+<p class="section-desc" data-i18n="serviceDesc">Loyihangizni o‘rganamiz va ehtiyojingizga mos xizmatlarni taklif qilamiz.</p>
+<div class="services">
+<article class="service"><div class="service-icon">▶</div><h3 data-i18n="s1title">YouTube kanal boshqaruvi</h3><p data-i18n="s1desc">Kanal sozlamalari, kontentni tashkil qilish, nashr rejalari va rivojlantirish bo‘yicha maslahat.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+<article class="service"><div class="service-icon">©</div><h3 data-i18n="s2title">Mualliflik da’volari bo‘yicha yordam</h3><p data-i18n="s2desc">Da’volar yoki strike holatini ko‘rib chiqish, hujjatlar va qonuniy apellyatsiya bo‘yicha ko‘mak.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+<article class="service"><div class="service-icon">♫</div><h3 data-i18n="s3title">Musiqa huquqlarini boshqarish</h3><p data-i18n="s3desc">Musiqa relizlari, foydalanish ruxsatlari va huquqlar bo‘yicha maslahat.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+<article class="service"><div class="service-icon">↗</div><h3 data-i18n="s4title">Kanalni rivojlantirish</h3><p data-i18n="s4desc">Kanal tahlili, kontent rejasi va auditoriyani tabiiy rivojlantirish bo‘yicha tavsiyalar.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+<article class="service"><div class="service-icon">◎</div><h3 data-i18n="s5title">Hamkorlik bo‘yicha maslahat</h3><p data-i18n="s5desc">Hamkorlik modellari, talablar va professional boshqaruv haqida ma’lumot.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+<article class="service"><div class="service-icon">✦</div><h3 data-i18n="s6title">Kontent va loyiha maslahati</h3><p data-i18n="s6desc">Ijodkorlar, prodyuserlar va huquq egalari uchun individual maslahat.</p><a href="#contact" data-i18n="learnMore">Batafsil so‘rash ↗</a></article>
+</div>
+</div>
 </section>
 
 <section class="content steps-section" id="process">
-  <div class="container">
-    <div class="label">ISHLASH TARTIBI</div>
-    <h2 class="section-title">Oddiy va tushunarli</h2>
-    <div class="steps">
-      <article class="step"><small>01 — SO‘ROV</small><h3>Loyihangizni tanishtiring</h3><p>Kanal yoki musiqa loyihangiz haqida qisqacha yozing.</p></article>
-      <article class="step"><small>02 — TAHLIL</small><h3>Vaziyatni o‘rganamiz</h3><p>Huquqlar, maqsadlar va mavjud variantlarni ko‘rib chiqamiz.</p></article>
-      <article class="step"><small>03 — REJA</small><h3>Keyingi qadamlarni kelishamiz</h3><p>Xizmatlar, muddatlar va narx alohida kelishiladi.</p></article>
-    </div>
-  </div>
+<div class="container">
+<div class="label" data-i18n="processLabel">ISHLASH TARTIBI</div>
+<h2 class="section-title" data-i18n="processTitle">Oddiy va tushunarli</h2>
+<div class="steps">
+<article class="step"><small>01</small><h3 data-i18n="step1title">Loyihangizni tanishtiring</h3><p data-i18n="step1desc">Kanal yoki musiqa loyihangiz haqida qisqacha yozing.</p></article>
+<article class="step"><small>02</small><h3 data-i18n="step2title">Vaziyatni o‘rganamiz</h3><p data-i18n="step2desc">Huquqlar, maqsadlar va mavjud variantlarni ko‘rib chiqamiz.</p></article>
+<article class="step"><small>03</small><h3 data-i18n="step3title">Keyingi qadamlarni kelishamiz</h3><p data-i18n="step3desc">Xizmatlar, muddatlar va narx alohida kelishiladi.</p></article>
+</div>
+</div>
 </section>
 
 <section class="content" id="contact">
-  <div class="container">
-    <div class="label">ALOQA</div>
-    <h2 class="section-title">Biz bilan bog‘laning</h2>
-    <p class="section-desc">Loyihangiz haqida ma’lumot yuboring.</p>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="logo">AF<span>TOR</span></div>
-        <p>YouTube kanali, musiqa relizi yoki mualliflik huquqlari bo‘yicha savolingizni yuboring.</p>
-        <p>Maxfiy parollar va API kalitlarini xabar orqali yubormang.</p>
-      </div>
-      <form class="contact-form" id="contactForm">
-        <div class="field"><label for="name">Ismingiz</label><input id="name" name="name" required maxlength="100"></div>
-        <div class="field"><label for="email">Elektron pochtangiz</label><input id="email" name="email" type="email" required maxlength="254"></div>
-        <div class="field full"><label for="service">Qaysi xizmat kerak?</label><select id="service" name="service"><option>YouTube kanal boshqaruvi</option><option>Mualliflik da’vosi bo‘yicha yordam</option><option>Musiqa huquqlari</option><option>Kanalni rivojlantirish</option><option>Boshqa savol</option></select></div>
-        <div class="field full"><label for="message">Loyihangiz haqida</label><textarea id="message" name="message" required maxlength="5000"></textarea></div>
-        <div class="field full"><button class="btn" type="submit">So‘rovni yuborish ↗</button></div>
-        <div class="field full"><div id="contactStatus" class="status" role="status"></div></div>
-      </form>
-    </div>
-  </div>
+<div class="container">
+<div class="label" data-i18n="contactLabel">ALOQA</div>
+<h2 class="section-title" data-i18n="contactTitle">Biz bilan bog‘laning</h2>
+<p class="section-desc" data-i18n="contactDesc">Loyihangiz haqida ma’lumot yuboring.</p>
+<div class="contact-grid">
+<div class="contact-info">
+<div class="logo">AF<span>TOR</span></div>
+<p data-i18n="contactInfo">YouTube kanali, musiqa relizi yoki mualliflik huquqlari bo‘yicha savolingizni yuboring.</p>
+<p data-i18n="privacyNote">Parol va maxfiy kalitlarni xabar orqali yubormang.</p>
+</div>
+<form class="contact-form" id="contactForm">
+<div class="field"><label for="contactName" data-i18n="nameLabel">Ismingiz</label><input id="contactName" name="name" required maxlength="100" autocomplete="name"></div>
+<div class="field"><label for="contactEmail" data-i18n="emailLabel">Elektron pochtangiz</label><input id="contactEmail" name="email" type="email" required maxlength="254" autocomplete="email"></div>
+<div class="field full"><label for="serviceSelect" data-i18n="serviceQuestion">Qaysi xizmat kerak?</label>
+<select id="serviceSelect" name="service">
+<option value="youtube" data-i18n="optionYoutube">YouTube kanal boshqaruvi</option>
+<option value="copyright" data-i18n="optionCopyright">Mualliflik da’vosi bo‘yicha yordam</option>
+<option value="music" data-i18n="optionMusic">Musiqa huquqlari</option>
+<option value="growth" data-i18n="optionGrowth">Kanalni rivojlantirish</option>
+<option value="other" data-i18n="optionOther">Boshqa savol</option>
+</select></div>
+<div class="field full"><label for="contactMessage" data-i18n="messageLabel">Loyihangiz haqida</label><textarea id="contactMessage" name="message" required maxlength="5000"></textarea></div>
+<div class="field full"><button class="btn" type="submit" data-i18n="sendButton">So‘rovni yuborish ↗</button></div>
+<div class="field full"><div id="contactStatus" class="status" role="status"></div></div>
+</form>
+</div>
+</div>
 </section>
 </main>
 
 <footer>
-  <div class="container">
-    <div class="footer-row">
-      <div><a class="logo" href="#home">AF<span>TOR</span></a><p>© <span id="year"></span> AFTOR. Barcha huquqlar himoyalangan.</p></div>
-      <div class="footer-links"><a href="#home">Bosh sahifa</a><a href="#services">Xizmatlar</a><a href="#contact">Aloqa</a><a href="#" id="footerLogin">Akkaunt</a></div>
-    </div>
-    <p>YouTube, Spotify, Apple Music va boshqa brendlar o‘z egalariga tegishli. Rasmiy hamkorlik alohida tasdiqlanmagan bo‘lsa, ushbu sayt bunday hamkorlikni anglatmaydi.</p>
-  </div>
+<div class="container">
+<div class="footer-row">
+<div><a class="logo" href="#home">AF<span>TOR</span></a><p>© <span id="year"></span> AFTOR</p></div>
+<div class="footer-links">
+<a href="#home" data-i18n="navHome">Bosh sahifa</a>
+<a href="#services" data-i18n="navServices">Xizmatlar</a>
+<a href="#contact" data-i18n="navContact">Aloqa</a>
+<a href="#" id="footerAccount" data-i18n="account">Akkaunt</a>
+<a href="/dashboard.html" id="adminLink" hidden data-i18n="adminPanel">Admin panel</a>
+</div>
+</div>
+<p data-i18n="legal">YouTube, Spotify, Apple Music va boshqa brendlar o‘z egalariga tegishli. Ushbu sayt rasmiy hamkorlik mavjudligini anglatmaydi. Xizmat natijalari kafolatlanmaydi.</p>
+</div>
 </footer>
 
 <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-  <div class="modal-box">
-    <button class="close" id="closeModal" aria-label="Yopish">×</button>
-    <div class="logo">AF<span>TOR</span></div>
-    <h2 id="authTitle">Akkauntingizga kiring</h2>
-    <p id="authIntro" style="color:#aaa;font-size:13px;line-height:1.7">AFTOR akkauntingiz orqali xizmatlardan foydalaning.</p>
-    <form class="auth-form" id="authForm">
-      <label id="nameLabel" hidden>Ismingiz<input id="authName" name="name" autocomplete="name" maxlength="100"></label>
-      <label>Elektron pochta<input id="authEmail" name="email" type="email" autocomplete="email" required maxlength="254"></label>
-      <label>Parol<input id="authPassword" name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="72"></label>
-      <button class="btn" id="authSubmit" type="submit">Kirish</button>
-      <div id="authStatus" class="status" role="status"></div>
-    </form>
-    <p class="auth-switch"><span id="switchText">Akkauntingiz yo‘qmi?</span> <button id="switchAuth" type="button">Ro‘yxatdan o‘tish</button></p>
-  </div>
+<div class="modal-box">
+<button class="close" type="button" id="closeModal" aria-label="Close">×</button>
+<div class="logo">AF<span>TOR</span></div>
+<h2 id="authTitle" data-i18n="loginTitle">Akkauntingizga kiring</h2>
+<p class="modal-intro" id="authIntro" data-i18n="loginIntro">AFTOR akkauntingiz orqali xizmatlardan foydalaning.</p>
+<form class="auth-form" id="authForm">
+<label id="nameLabel" hidden><span data-i18n="nameLabel">Ismingiz</span><input id="authName" name="name" maxlength="100" autocomplete="name"></label>
+<label><span data-i18n="emailLabel">Elektron pochtangiz</span><input id="authEmail" name="email" type="email" required maxlength="254" autocomplete="email"></label>
+<label><span data-i18n="passwordLabel">Parol</span><input id="authPassword" name="password" type="password" required minlength="10" maxlength="72" autocomplete="current-password"></label>
+<button class="btn" id="authSubmit" type="submit" data-i18n="login">Kirish</button>
+<div id="authStatus" class="status" role="status"></div>
+</form>
+<p class="auth-switch"><span id="switchText" data-i18n="noAccount">Akkauntingiz yo‘qmi?</span> <button type="button" id="switchAuth" data-i18n="register">Ro‘yxatdan o‘tish</button></p>
+</div>
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
-$("year").textContent = new Date().getFullYear();
-
-$("menuBtn").addEventListener("click", () => $("navLinks").classList.toggle("open"));
-document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => $("navLinks").classList.remove("open")));
-
-let authMode = "login";
-function openAuth(mode) {
-  authMode = mode;
-  $("authModal").classList.add("open");
-  $("authStatus").style.display = "none";
-  $("authForm").reset();
-  const registering = mode === "register";
-  $("nameLabel").hidden = !registering;
-  $("authName").required = registering;
-  $("authPassword").autocomplete = registering ? "new-password" : "current-password";
-  $("authTitle").textContent = registering ? "AFTOR akkauntini yarating" : "Akkauntingizga kiring";
-  $("authIntro").textContent = registering ? "Ismingiz, emailingiz va kuchli parol kiriting." : "Email va parolingiz bilan tizimga kiring.";
-  $("authSubmit").textContent = registering ? "Ro‘yxatdan o‘tish" : "Kirish";
-  $("switchText").textContent = registering ? "Akkauntingiz bormi?" : "Akkauntingiz yo‘qmi?";
-  $("switchAuth").textContent = registering ? "Kirish" : "Ro‘yxatdan o‘tish";
+const translations = {
+uz:{
+navHome:"Bosh sahifa",navServices:"Xizmatlar",navProcess:"Ish tartibi",navContact:"Aloqa",
+login:"Kirish",register:"Ro‘yxatdan o‘tish",
+eyebrow:"MEDIA XIZMATLARI • IJODKORLAR UCHUN",
+heroTitle:'Ijodingizni<br>yangi <span>bosqichga</span><br>olib chiqing.',
+heroDesc:"YouTube kanal boshqaruvi, musiqa loyihalari va mualliflik huquqlari bo‘yicha professional media xizmatlari — barchasi bir joyda.",
+servicesButton:"Xizmatlarni ko‘rish ↗",contactButton:"Biz bilan bog‘lanish",
+disclaimer:"Har bir loyiha alohida ko‘rib chiqiladi. Natijalar oldindan kafolatlanmaydi.",
+solutions:"AFTOR YECHIMLARI",solutionsTitle:"Ijodingiz uchun kerakli yordam",
+youtubeTitle:"YouTube xizmatlari",youtubeDesc:"Kanal boshqaruvi, kontent rejalari va rivojlantirish.",
+musicTitle:"Musiqa va huquqlar",musicDesc:"Musiqa relizlari va huquqlar bo‘yicha yordam.",
+copyrightTitle:"Mualliflik da’volari",copyrightDesc:"Da’volar, hujjatlar va qonuniy apellyatsiya jarayonlari.",
+platforms:"MASHHUR KONTENT PLATFORMALARI",
+serviceLabel:"BIZNING XIZMATLAR",serviceTitle:"Ijodingiz uchun yechimlar",
+serviceDesc:"Loyihangizni o‘rganamiz va ehtiyojingizga mos xizmatlarni taklif qilamiz.",
+s1title:"YouTube kanal boshqaruvi",s1desc:"Kanal sozlamalari, kontentni tashkil qilish, nashr rejalari va rivojlantirish bo‘yicha maslahat.",
+s2title:"Mualliflik da’volari bo‘yicha yordam",s2desc:"Da’volar yoki strike holatini ko‘rib chiqish, hujjatlar va qonuniy apellyatsiya bo‘yicha ko‘mak.",
+s3title:"Musiqa huquqlarini boshqarish",s3desc:"Musiqa relizlari, foydalanish ruxsatlari va huquqlar bo‘yicha maslahat.",
+s4title:"Kanalni rivojlantirish",s4desc:"Kanal tahlili, kontent rejasi va auditoriyani tabiiy rivojlantirish bo‘yicha tavsiyalar.",
+s5title:"Hamkorlik bo‘yicha maslahat",s5desc:"Hamkorlik modellari, talablar va professional boshqaruv haqida ma’lumot.",
+s6title:"Kontent va loyiha maslahati",s6desc:"Ijodkorlar, prodyuserlar va huquq egalari uchun individual maslahat.",
+learnMore:"Batafsil so‘rash ↗",processLabel:"ISHLASH TARTIBI",processTitle:"Oddiy va tushunarli",
+step1title:"Loyihangizni tanishtiring",step1desc:"Kanal yoki musiqa loyihangiz haqida qisqacha yozing.",
+step2title:"Vaziyatni o‘rganamiz",step2desc:"Huquqlar, maqsadlar va mavjud variantlarni ko‘rib chiqamiz.",
+step3title:"Keyingi qadamlarni kelishamiz",step3desc:"Xizmatlar, muddatlar va narx alohida kelishiladi.",
+contactLabel:"ALOQA",contactTitle:"Biz bilan bog‘laning",contactDesc:"Loyihangiz haqida ma’lumot yuboring.",
+contactInfo:"YouTube kanali, musiqa relizi yoki mualliflik huquqlari bo‘yicha savolingizni yuboring.",
+privacyNote:"Parol va maxfiy kalitlarni xabar orqali yubormang.",
+nameLabel:"Ismingiz",emailLabel:"Elektron pochtangiz",serviceQuestion:"Qaysi xizmat kerak?",
+optionYoutube:"YouTube kanal boshqaruvi",optionCopyright:"Mualliflik da’vosi bo‘yicha yordam",optionMusic:"Musiqa huquqlari",optionGrowth:"Kanalni rivojlantirish",optionOther:"Boshqa savol",
+messageLabel:"Loyihangiz haqida",sendButton:"So‘rovni yuborish ↗",
+account:"Akkaunt",adminPanel:"Admin panel",legal:"YouTube, Spotify, Apple Music va boshqa brendlar o‘z egalariga tegishli. Ushbu sayt rasmiy hamkorlik mavjudligini anglatmaydi. Xizmat natijalari kafolatlanmaydi.",
+loginTitle:"Akkauntingizga kiring",loginIntro:"AFTOR akkauntingiz orqali xizmatlardan foydalaning.",
+registerTitle:"AFTOR akkauntini yarating",registerIntro:"Ismingiz, emailingiz va kuchli parol kiriting.",
+passwordLabel:"Parol",noAccount:"Akkauntingiz yo‘qmi?",hasAccount:"Akkauntingiz bormi?",
+nameRequired:"Ismingizni kiriting.",sending:"Yuborilmoqda...",contactSuccess:"Xabaringiz yuborildi.",
+loginSuccess:"Tizimga kirdingiz.",registerSuccess:"Akkaunt yaratildi. Email tasdiqlash hali sozlanmagan.",
+serverError:"Server bilan bog‘lanib bo‘lmadi. Server sozlamalarini tekshiring."
+},
+en:{
+navHome:"Home",navServices:"Services",navProcess:"How it works",navContact:"Contact",
+login:"Log in",register:"Sign up",
+eyebrow:"MEDIA SERVICES • FOR CREATORS",
+heroTitle:'Take your<br>creativity to the <span>next level</span>.',
+heroDesc:"Professional media services for YouTube channel management, music projects, and copyright matters — all in one place.",
+servicesButton:"Explore services ↗",contactButton:"Contact us",
+disclaimer:"Every project is reviewed individually. Outcomes are not guaranteed.",
+solutions:"AFTOR SOLUTIONS",solutionsTitle:"Support for your creative work",
+youtubeTitle:"YouTube services",youtubeDesc:"Channel management, content planning, and development.",
+musicTitle:"Music and rights",musicDesc:"Support with music releases and rights management.",
+copyrightTitle:"Copyright claims",copyrightDesc:"Claims, documentation, and legitimate appeal processes.",
+platforms:"POPULAR CONTENT PLATFORMS",
+serviceLabel:"OUR SERVICES",serviceTitle:"Solutions for your creativity",
+serviceDesc:"We review your project and suggest services suited to your needs.",
+s1title:"YouTube channel management",s1desc:"Guidance on channel settings, content organization, publishing, and development.",
+s2title:"Copyright claim support",s2desc:"Review claims or strikes and assist with documentation and legitimate appeals.",
+s3title:"Music rights management",s3desc:"Guidance on music releases, usage permissions, and rights.",
+s4title:"Channel growth",s4desc:"Channel analysis, content planning, and organic audience growth recommendations.",
+s5title:"Partnership consulting",s5desc:"Information about partnership models, requirements, and professional management.",
+s6title:"Content and project consulting",s6desc:"Individual guidance for creators, producers, and rights holders.",
+learnMore:"Learn more ↗",processLabel:"HOW WE WORK",processTitle:"Simple and clear",
+step1title:"Tell us about your project",step1desc:"Briefly describe your channel or music project.",
+step2title:"We review your situation",step2desc:"We review rights, goals, and available options.",
+step3title:"Agree on next steps",step3desc:"Services, timelines, and prices are agreed separately.",
+contactLabel:"CONTACT",contactTitle:"Get in touch",contactDesc:"Send us information about your project.",
+contactInfo:"Contact us about your YouTube channel, music release, or copyright question.",
+privacyNote:"Do not send passwords or secret keys in messages.",
+nameLabel:"Your name",emailLabel:"Your email",serviceQuestion:"Which service do you need?",
+optionYoutube:"YouTube channel management",optionCopyright:"Copyright claim support",optionMusic:"Music rights",optionGrowth:"Channel growth",optionOther:"Other question",
+messageLabel:"Tell us about your project",sendButton:"Send inquiry ↗",
+account:"Account",adminPanel:"Admin panel",legal:"YouTube, Spotify, Apple Music, and other brands belong to their respective owners. This site does not imply official partnership. Service outcomes are not guaranteed.",
+loginTitle:"Log in to your account",loginIntro:"Access AFTOR services using your account.",
+registerTitle:"Create your AFTOR account",registerIntro:"Enter your name, email, and a strong password.",
+passwordLabel:"Password",noAccount:"Don't have an account?",hasAccount:"Already have an account?",
+nameRequired:"Please enter your name.",sending:"Sending...",contactSuccess:"Your message has been sent.",
+loginSuccess:"You are logged in.",registerSuccess:"Account created. Email verification is not configured yet.",
+serverError:"Could not connect to the server. Check the server configuration."
+},
+ru:{
+navHome:"Главная",navServices:"Услуги",navProcess:"Как мы работаем",navContact:"Контакты",
+login:"Войти",register:"Регистрация",
+eyebrow:"МЕДИАУСЛУГИ • ДЛЯ АВТОРОВ",
+heroTitle:'Выведите<br>своё творчество на <span>новый уровень</span>.',
+heroDesc:"Профессиональные медиауслуги: управление YouTube-каналами, музыкальные проекты и вопросы авторского права — всё в одном месте.",
+servicesButton:"Наши услуги ↗",contactButton:"Связаться с нами",
+disclaimer:"Каждый проект рассматривается отдельно. Результаты не гарантируются.",
+solutions:"РЕШЕНИЯ AFTOR",solutionsTitle:"Помощь для вашего творчества",
+youtubeTitle:"Услуги YouTube",youtubeDesc:"Управление каналом, планирование контента и развитие.",
+musicTitle:"Музыка и права",musicDesc:"Помощь с музыкальными релизами и управлением правами.",
+copyrightTitle:"Авторские претензии",copyrightDesc:"Претензии, документы и законные процедуры обжалования.",
+platforms:"ПОПУЛЯРНЫЕ КОНТЕНТ-ПЛАТФОРМЫ",
+serviceLabel:"НАШИ УСЛУГИ",serviceTitle:"Решения для вашего творчества",
+serviceDesc:"Изучим ваш проект и предложим услуги с учётом ваших потребностей.",
+s1title:"Управление YouTube-каналом",s1desc:"Настройки канала, организация контента, планирование публикаций и развитие.",
+s2title:"Помощь с авторскими претензиями",s2desc:"Разбор претензий или страйков, документов и законных апелляций.",
+s3title:"Управление музыкальными правами",s3desc:"Консультации по музыкальным релизам, разрешениям и правам.",
+s4title:"Развитие канала",s4desc:"Анализ канала, контент-план и рекомендации по органическому росту аудитории.",
+s5title:"Консультации по партнёрству",s5desc:"Информация о моделях партнёрства, требованиях и профессиональном управлении.",
+s6title:"Консультации по контенту и проектам",s6desc:"Индивидуальные консультации для авторов, продюсеров и правообладателей.",
+learnMore:"Подробнее ↗",processLabel:"КАК МЫ РАБОТАЕМ",processTitle:"Просто и понятно",
+step1title:"Расскажите о проекте",step1desc:"Кратко опишите ваш канал или музыкальный проект.",
+step2title:"Изучим ситуацию",step2desc:"Рассмотрим права, цели и доступные варианты.",
+step3title:"Согласуем дальнейшие шаги",step3desc:"Услуги, сроки и стоимость согласовываются отдельно.",
+contactLabel:"КОНТАКТЫ",contactTitle:"Свяжитесь с нами",contactDesc:"Отправьте информацию о вашем проекте.",
+contactInfo:"Напишите нам о YouTube-канале, музыкальном релизе или авторских правах.",
+privacyNote:"Не отправляйте пароли и секретные ключи в сообщениях.",
+nameLabel:"Ваше имя",emailLabel:"Ваш email",serviceQuestion:"Какая услуга нужна?",
+optionYoutube:"Управление YouTube-каналом",optionCopyright:"Помощь с авторскими претензиями",optionMusic:"Музыкальные права",optionGrowth:"Развитие канала",optionOther:"Другой вопрос",
+messageLabel:"О вашем проекте",sendButton:"Отправить запрос ↗",
+account:"Аккаунт",adminPanel:"Панель администратора",legal:"YouTube, Spotify, Apple Music и другие бренды принадлежат соответствующим владельцам. Этот сайт не означает официального партнёрства. Результаты услуг не гарантируются.",
+loginTitle:"Войдите в аккаунт",loginIntro:"Используйте аккаунт AFTOR для доступа к услугам.",
+registerTitle:"Создайте аккаунт AFTOR",registerIntro:"Введите имя, email и надёжный пароль.",
+passwordLabel:"Пароль",noAccount:"Нет аккаунта?",hasAccount:"Уже есть аккаунт?",
+nameRequired:"Введите имя.",sending:"Отправка...",contactSuccess:"Ваше сообщение отправлено.",
+loginSuccess:"Вы вошли в систему.",registerSuccess:"Аккаунт создан. Подтверждение email пока не настроено.",
+serverError:"Не удалось подключиться к серверу. Проверьте настройки сервера."
 }
-$("loginBtn").addEventListener("click", () => openAuth("login"));
-$("registerBtn").addEventListener("click", () => openAuth("register"));
-$("footerLogin").addEventListener("click", e => {e.preventDefault();openAuth("login");});
-$("closeModal").addEventListener("click", () => $("authModal").classList.remove("open"));
-$("authModal").addEventListener("click", e => {if(e.target === $("authModal")) $("authModal").classList.remove("open");});
-document.addEventListener("keydown", e => {if(e.key === "Escape") $("authModal").classList.remove("open");});
-$("switchAuth").addEventListener("click", () => openAuth(authMode === "login" ? "register" : "login"));
+};
 
-$("authForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const status = $("authStatus");
-  status.style.display = "block";
-  status.textContent = "Tekshirilmoqda...";
-  const payload = {
-    email: $("authEmail").value.trim(),
-    password: $("authPassword").value
+let currentLanguage = "uz";
+let authMode = "login";
+
+function tr(key){
+  return translations[currentLanguage][key] || translations.uz[key] || key;
+}
+
+function setLanguage(language){
+  if(!translations[language]) return;
+  currentLanguage = language;
+  document.documentElement.lang = language;
+
+  document.querySelectorAll("[data-language]").forEach(button=>{
+    button.classList.toggle("active",button.dataset.language===language);
+  });
+
+  document.querySelectorAll("[data-i18n]").forEach(element=>{
+    const key=element.dataset.i18n;
+    if(translations[language][key]) element.textContent=translations[language][key];
+  });
+
+  document.querySelectorAll("[data-i18n-html]").forEach(element=>{
+    const key=element.dataset.i18nHtml;
+    if(translations[language][key]) element.innerHTML=translations[language][key];
+  });
+
+  updateAuthText();
+}
+
+document.querySelectorAll("[data-language]").forEach(button=>{
+  button.addEventListener("click",()=>setLanguage(button.dataset.language));
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  document.getElementById("navLinks").classList.toggle("open");
+});
+document.querySelectorAll("#navLinks a").forEach(link=>{
+  link.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open"));
+});
+
+const authModal=document.getElementById("authModal");
+const authStatus=document.getElementById("authStatus");
+
+function updateAuthText(){
+  document.getElementById("authTitle").textContent=tr(authMode==="login"?"loginTitle":"registerTitle");
+  document.getElementById("authIntro").textContent=tr(authMode==="login"?"loginIntro":"registerIntro");
+  document.getElementById("authSubmit").textContent=tr(authMode==="login"?"login":"register");
+  document.getElementById("switchText").textContent=tr(authMode==="login"?"noAccount":"hasAccount");
+  document.getElementById("switchAuth").textContent=tr(authMode==="login"?"register":"login");
+}
+
+function openAuth(mode){
+  authMode=mode;
+  document.getElementById("authForm").reset();
+  document.getElementById("nameLabel").hidden=mode!=="register";
+  document.getElementById("authName").required=mode==="register";
+  document.getElementById("authPassword").autocomplete=mode==="register"?"new-password":"current-password";
+  authStatus.style.display="none";
+  updateAuthText();
+  authModal.classList.add("open");
+}
+
+document.getElementById("loginBtn").addEventListener("click",()=>openAuth("login"));
+document.getElementById("registerBtn").addEventListener("click",()=>openAuth("register"));
+document.getElementById("footerAccount").addEventListener("click",event=>{
+  event.preventDefault();
+  openAuth("login");
+});
+document.getElementById("closeModal").addEventListener("click",()=>authModal.classList.remove("open"));
+authModal.addEventListener("click",event=>{
+  if(event.target===authModal) authModal.classList.remove("open");
+});
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape") authModal.classList.remove("open");
+});
+document.getElementById("switchAuth").addEventListener("click",()=>{
+  openAuth(authMode==="login"?"register":"login");
+});
+
+document.getElementById("authForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  authStatus.style.display="block";
+  authStatus.textContent=tr("sending");
+
+  const payload={
+    email:document.getElementById("authEmail").value.trim(),
+    password:document.getElementById("authPassword").value
   };
-  if(authMode === "register") payload.name = $("authName").value.trim();
-  try {
-    const response = await fetch(authMode === "register" ? "/api/register" : "/api/login", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      credentials: "same-origin",
-      body: JSON.stringify(payload)
+  if(authMode==="register") payload.name=document.getElementById("authName").value.trim();
+
+  try{
+    const response=await fetch(authMode==="register"?"/api/register":"/api/login",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"same-origin",
+      body:JSON.stringify(payload)
     });
-    const result = await response.json();
-    if(!response.ok) throw new Error(result.error || "Xatolik yuz berdi.");
-    status.textContent = result.message || "Muvaffaqiyatli!";
-    if(authMode === "login") {
-      status.textContent = "Tizimga kirdingiz.";
-      setTimeout(() => {
-        $("authModal").classList.remove("open");
-        if(result.user && result.user.role === "admin") window.location.href = "/dashboard.html";
-      }, 700);
+    const result=await response.json();
+    if(!response.ok) throw new Error(result.error||tr("serverError"));
+
+    authStatus.textContent=authMode==="register"?tr("registerSuccess"):tr("loginSuccess");
+
+    if(authMode==="login"){
+      setTimeout(()=>{
+        authModal.classList.remove("open");
+        if(result.user&&result.user.role==="admin"){
+          window.location.href="/dashboard.html";
+        }
+      },700);
     }
-  } catch(error) {
-    status.textContent = error.message || "Server bilan bog‘lanib bo‘lmadi.";
+  }catch(error){
+    authStatus.textContent=error.message||tr("serverError");
   }
 });
 
-$("contactForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const status = $("contactStatus");
-  status.style.display = "block";
-  status.textContent = "Xabar yuborilmoqda...";
-  const payload = {
-    name: $("name").value.trim(),
-    email: $("email").value.trim(),
-    message: "Xizmat: " + $("service").value + "\n\n" + $("message").value.trim()
+document.getElementById("contactForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const status=document.getElementById("contactStatus");
+  status.style.display="block";
+  status.textContent=tr("sending");
+
+  const option=document.getElementById("serviceSelect");
+  const selectedText=option.options[option.selectedIndex].text;
+  const payload={
+    name:document.getElementById("contactName").value.trim(),
+    email:document.getElementById("contactEmail").value.trim(),
+    message:tr("serviceQuestion")+": "+selectedText+"\n\n"+
+      document.getElementById("contactMessage").value.trim()
   };
-  try {
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      credentials: "same-origin",
-      body: JSON.stringify(payload)
+
+  try{
+    const response=await fetch("/api/contact",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"same-origin",
+      body:JSON.stringify(payload)
     });
-    const result = await response.json();
-    if(!response.ok) throw new Error(result.error || "Xabar yuborilmadi.");
-    status.textContent = result.message || "Xabaringiz yuborildi.";
-    $("contactForm").reset();
-  } catch(error) {
-    status.textContent = error.message || "Server bilan bog‘lanib bo‘lmadi. Server sozlamalarini tekshiring.";
+    const result=await response.json();
+    if(!response.ok) throw new Error(result.error||tr("serverError"));
+    status.textContent=result.message||tr("contactSuccess");
+    document.getElementById("contactForm").reset();
+  }catch(error){
+    status.textContent=error.message||tr("serverError");
   }
 });
 
-fetch("/api/me", {credentials:"same-origin"})
-  .then(r => r.ok ? r.json() : null)
-  .then(data => {
-    if(data && data.user && data.user.role === "admin") {
-      const link = document.createElement("a");
-      link.href = "/dashboard.html";
-      link.textContent = "Admin panel";
-      $("navLinks").appendChild(link);
-    }
-  }).catch(() => {});
+fetch("/api/me",{credentials:"same-origin"})
+.then(response=>response.ok?response.json():null)
+.then(result=>{
+  if(result&&result.user&&result.user.role==="admin"){
+    document.getElementById("adminLink").hidden=false;
+  }
+})
+.catch(()=>{});
+
+setLanguage("uz");
 </script>
 </body>
 </html>
