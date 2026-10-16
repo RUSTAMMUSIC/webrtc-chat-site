@@ -1,8 +1,8 @@
 
 {
-  "name": "webrtc-chat-site",
+  "name": "aftor-media-services",
   "version": "1.0.0",
-  "description": "Tanishamiz live chat",
+  "description": "AFTOR Media Services",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,7 +10,14 @@
   "dependencies": {
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
-    "livekit-server-sdk": "^2.13.3"
+    "livekit-server-sdk": "^2.13.3",
+    "pg": "^8.16.3",
+    "bcryptjs": "^3.0.2",
+    "express-session": "^1.18.2",
+    "connect-pg-simple": "^10.0.0",
+    "helmet": "^8.1.0",
+    "express-rate-limit": "^8.1.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.9"
   }
 }
-
